@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>B's Bookstore</title>
+</head>
+<body>
+
+
+<!-- I show up if the user is NOT logged in -->
+{{^userName}}
+<form action="\login" method="post">
+    <input type="text" name="loginInput" placeholder="User Name" />
+    <button type="submit">Login</button>
+</form>
+{{/userName}}
+
+<!-- I show up if the user IS logged in -->
+{{userName}}
+<form action="\logout" method="post">
+    <button type="submit">Logout</button>
+</form>
+{{/userName}}
+
+<h3>Welcome to Branden's Super Crazy Insane Happy-Time Bookstore!</h3>
+
+
+
+
+</body>
+</html>
