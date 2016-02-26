@@ -1,29 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link href="home.css" rel="stylesheet" type="text/css" />
     <meta charset="UTF-8">
     <title>B's Bookstore</title>
 </head>
 <body>
 
 
-<!-- I show up if the user is NOT logged in -->
-{{^userName}}
-<form action="\login" method="post">
-    <input type="text" name="loginInput" placeholder="User Name" />
-    <button type="submit">Login</button>
-</form>
-{{/userName}}
-
 <!-- I show up if the user IS logged in -->
-{{userName}}
-<form action="\logout" method="post">
+{{#user}}
+<div id="logout">
+<form action="/logout" method="post">
     <button type="submit">Logout</button>
 </form>
-{{/userName}}
+</div>
+{{/user}}
 
-<h3>Welcome to Branden's Super Crazy Insane Happy-Time Bookstore!</h3>
 
+<!-- I show up if the user is NOT logged in -->
+{{^user}}
+<div id="login">
+    <h3>Welcome to Branden's Super Crazy Insane Happy-Time Bookstore!</h3>
+<p>Log in to view posts</p>
+<form action="/login" method="post">
+    <input type="text" name="nameInput" placeholder="User Name" />
+    <input type="password" name="passwordInput" placeholder="User Password" />
+    <br />
+    <button type="submit">Submit</button>
+</form>
+</div>
+{{#passMisMatch}}
+<div id="badPass">
+    You have entered an invalid password.
+</div>
+{{/passMisMatch}}
+{{/user}}
+
+<!-- otherwise display the content -->
+{{#user}}
+
+<form action="/enter-item" method="post">
+    <fieldset>
+        <legend>Inventory Entry:</legend>
+        <p>
+        <div style="float:left;margin-right:20px;">
+            <label for="bookTitleInput">Title</label>
+            <input type="text" name="bookTitleInput" placeholder="Book Title" />
+        </div>
+        <div style="float:left;">
+            <label for="bookAuthorInput">Author</label>
+            <input type="text" name="bookAuthorInput" placeholder="Book Author" />
+        </div>
+        </p>
+        <p style="clear:both;">
+            <div style="float:left;margin-right:20px;">
+           <label for="bookYearInput">Year</label>
+           <input type="number" name="bookYearInput" />
+    </div>
+        <div style="float:left;margin-right:20px;">
+            <label for="bookIsbnInput">Isbn</label>
+         <input type="number" name="bookIsbnInput" />
+        </div>
+        <div style="float:left;">
+          <label for="bookRatingInput">Rating</label>
+         <select name="bookRatingInput">
+            <option disabled></option>
+            <option value="A">A</option>
+            <option value="B">B</option>
+            <option value="C">C</option>
+            <option value="D">D</option>
+        </select>
+        </div>
+        </p>
+        <p style="clear:both;">
+            <label for="bookDescriptionInput">Short Description</label>
+            <textarea name="bookDescriptionInput" rows="5" cols="50" placeholder="Enter Short Description"></textarea>
+        </p>
+        <button type="reset">Clear all fields</button>  <button type="submit">Add</button>
+    </fieldset>
+</form>
+{{/user}}
 
 
 
