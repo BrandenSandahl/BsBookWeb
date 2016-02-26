@@ -80,6 +80,40 @@
         <button type="reset">Clear all fields</button>  <button type="submit">Add</button>
     </fieldset>
 </form>
+
+{{#haveBook}}
+<table>
+    <thead>
+    <tr>
+        <th>ISBN</th>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Year</th>
+        <th>Rating</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#bookSubCollection}}
+    <tr>
+        <td>{{isbn}}</td>
+        <td>{{title}}</td>
+        <td>{{author}}</td>
+        <td>{{year}}</td>
+        <td>{{Rating}}</td>
+    </tr>
+    {{/bookSubCollection}}
+
+    </tbody>
+    <tfoot>
+    <tr>Previous</tr>
+    <tr>Next</tr>
+    </tfoot>
+</table>
+
+{{/haveBook}}
+
+
+
 {{/user}}
 
 
