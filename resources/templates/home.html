@@ -5,40 +5,58 @@
     <meta charset="UTF-8">
     <title>B's Bookstore</title>
 </head>
+
 <body>
 
 
+
+{{#user}}
 <!-- I show up if the user IS logged in -->
-{{#user}}
-<div id="logout">
+<ul>
+    <li>
+<span id="logout">
 <form action="/logout" method="post">
-    <button type="submit">Logout</button>
+    <button class="navButton" type="submit">Logout</button>
 </form>
-</div>
+</span>
+    </li>
+    <li><a href="/">{{name}}</a></li>
+</ul>
 {{/user}}
 
 
-<!-- I show up if the user is NOT logged in -->
+
+
+
+
 {{^user}}
-<div id="login">
-    <h3>Welcome to Branden's Super Crazy Insane Happy-Time Bookstore!</h3>
-<p>Log in to view posts</p>
+<!-- I show up if the user is NOT logged in -->
+<ul>
+<span id="login">
 <form action="/login" method="post">
-    <input type="text" name="nameInput" placeholder="User Name" />
-    <input type="password" name="passwordInput" placeholder="User Password" />
-    <br />
-    <button type="submit">Submit</button>
+    <li><button class="navButton" type="submit">Submit</button></li>
+   <li><input type="password" name="passwordInput" placeholder="User Password" /></li>
+    <li><input type="text" name="nameInput" placeholder="User Name" /></li>
 </form>
-</div>
+</span>
 {{#passMisMatch}}
-<div id="badPass">
+<li>
     You have entered an invalid password.
-</div>
+</li>
+
 {{/passMisMatch}}
+</ul>
+
 {{/user}}
 
-<!-- otherwise display the content -->
+
+
+
+
+<div id="mainContent">
+<!-- only display if there is a logged in user -->
 {{#user}}
+
 
 <form action="/enter-item" method="post">
     <fieldset>
@@ -65,7 +83,7 @@
         <div style="float:left;">
           <label for="bookRatingInput">Rating</label>
          <select name="bookRatingInput">
-            <option disabled></option>
+            <option disabled>Ratings</option>
             <option value="A">A</option>
             <option value="B">B</option>
             <option value="C">C</option>
@@ -80,41 +98,47 @@
         <button type="reset">Clear all fields</button>  <button type="submit">Add</button>
     </fieldset>
 </form>
+    {{/user}}
 
-{{#haveBook}}
+
+    <p>
 <table>
     <thead>
     <tr>
+        <th>Actions</th>
         <th>ISBN</th>
         <th>Title</th>
         <th>Author</th>
         <th>Year</th>
         <th>Rating</th>
+        <th>Owner</th>
     </tr>
     </thead>
-    <tbody>
-    {{#bookSubCollection}}
+    <tfoot>
     <tr>
+    <td>Previous</td>
+    <td>Next</td>
+    </tr>
+    </tfoot>
+    <tbody>
+    {{#bookList}}
+    <tr>
+        <td>{{#allowEdit}}{{userName}}<a href="/edit?isbn={{isbn}}">Edit</a>{{/allowEdit}}</td>
         <td>{{isbn}}</td>
         <td>{{title}}</td>
         <td>{{author}}</td>
         <td>{{year}}</td>
         <td>{{Rating}}</td>
+        <td>{{#owner}}{{name}}{{/owner}}</td>
     </tr>
-    {{/bookSubCollection}}
-
+    {{/bookList}}
     </tbody>
-    <tfoot>
-    <tr>Previous</tr>
-    <tr>Next</tr>
-    </tfoot>
 </table>
+    </p>
 
-{{/haveBook}}
+    </div>
 
 
-
-{{/user}}
 
 
 

@@ -4,13 +4,16 @@ import spark.ModelAndView;
 import spark.*;
 import spark.template.mustache.MustacheTemplateEngine;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Main {
 
     static HashMap<String, User> userMap = new HashMap<>(); //static map to hold all of our user accounts
-    static HashMap<Integer, Book> bookMap = new HashMap<>(); //static map to hold all the books in our inventory
+    static ArrayList<Book> bookList =  new ArrayList<>(); //static list to hold all books in our inventory
+   // static HashMap<Integer, Book> bookMap = new HashMap<>(); //static map to hold all the books in our inventory
     static boolean passMisMatch = false; //this controls an HTML div. maybe look into better way to do this
+
 
     public static void main(String[] args) {
         Spark.externalStaticFileLocation("public");
@@ -22,16 +25,23 @@ public class Main {
                     Session session = request.session();
                     User user = getUserFromSession(session);
 
-                    HashMap m = new HashMap();
+                    boolean haveBook = !bookList.isEmpty();
+//                    boolean test = false;
+//
+//                    if (haveBook) {
+//                         test = bookList.get(0).allowEdit(user);
+//                    }
 
-                    //login a user logic
+                    HashMap m = new HashMap();
+                    m.put("bookList", bookList);
+                    m.put("passMisMatch", passMisMatch);
+                    m.put("haveBook", haveBook);
                     if (user != null) {
-                        m.put("user", user);  //if the user has entered something then add to my hashmap
-                        m.put("passMisMatch", passMisMatch); //i think this is just a way for mustache to display all this?
-                        return new ModelAndView(m, "home.html");  //can also just pass the user here
+                        m.put("user", user); //login user if there is a user
+                        m.put("userName", user.getName());
+                        return new ModelAndView(m, "home.html");
                     } else {
-                        m.put("passMisMatch", passMisMatch);
-                        return new ModelAndView(m, "home.html");  //can also just pass the user here
+                        return new ModelAndView(m, "home.html");
                     }
 
                 }),
@@ -73,20 +83,36 @@ public class Main {
         Spark.post(
                 "/enter-item",
                 ((request, response) -> {
-                    //lets just grab all the fields first off. worry about error checking later yo.
+                    User user = getUserFromSession(request.session());
 
+                    //lets just grab all the fields first off. worry about error checking later yo.
                     String title = request.queryParams("bookTitleInput");
                     String author = request.queryParams("bookAuthorInput");
                     String description = request.queryParams("bookDescriptionInput");
                     char rating = request.queryParams("bookRatingInput").charAt(0);
                     int year = Integer.parseInt(request.queryParams("bookYearInput"));
-                    int isbn = Integer.parseInt(request.queryParams("bookIsbnInput"));
+                    //for some reason i could not do this all in one go ??
+                    String isbnString = request.queryParams("bookIsbnInput");
+                    int isbn = Integer.parseInt(isbnString);
 
 
                     //can we make an object?
-                    Book b = new Book(title, author, description, isbn, year, rating);
+                    Book b = new Book(title, author, description, isbn, year, rating, user);
                     //can we add it? ... .. .... Who is we? Hello?
-                    bookMap.put(b.getIsbn(), b);
+                    bookList.add(b);
+                 //   bookMap.put(b.getIsbn(), b);
+                    response.redirect("/");
+                    return "";
+                })
+        );
+
+        Spark.post(
+                "/logout",
+                ((request, response) -> {
+                    Session session = request.session();
+                    session.invalidate();
+
+                    response.redirect("/");
                     return "";
                 })
         );

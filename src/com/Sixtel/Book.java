@@ -8,21 +8,31 @@ public class Book {
     private String title, author, shortDescription;
     private int isbn, year;
     private char rating;
+    private User owner;
 
-    private final char[] RATINGS = {'A', 'B', 'C', 'D'};  //we don't keep no F books here dawg
+    String link = "<a href=\"/edit?isbn={{isbn}}\">";
+
+    //anon function to tell me if the user is the owner of the item.
+    String allowEdit(String name) {
+      return (name.equals(this.owner.getName())) ? "TRUE" : "FALSE" ;
+   }
+
+
+    private final char[] RATINGS = {'A', 'B', 'C', 'D'};
 
 
     //constructors
     public Book() {
     }
 
-    public Book(String title, String author, String shortDescription, int isbn, int year, char rating) {
+    public Book(String title, String author, String shortDescription, int isbn, int year, char rating, User owner) {
         this.title = title;
         this.author = author;
         this.shortDescription = shortDescription;
         this.isbn = isbn;
         this.year = year;
         this.rating = rating;
+        this.owner = owner;
     }
 
 
@@ -81,6 +91,15 @@ public class Book {
 
         this.rating = rating;
     }
+
+    public User getOwner() {
+        return owner;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
+    }
+
 
 
     //easy way to display input

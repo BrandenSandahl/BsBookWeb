@@ -12,8 +12,14 @@ div#logout {
 
 }
 
+div#mainContent {
+    width: 80%
+    clear: both;
+    margin: auto;
+    padding: 75px 75px 75px 75px;
+}
+
 fieldset {
-        width: 80%;
         background: #f2f1ef;
         clear: both;
         }
@@ -38,6 +44,80 @@ input.focus {
         border: solid 1px #707070;
         box-shadow: 0 0 5px 1px #969696;
         }
+
+table {
+          border-collapse: collapse;
+          width: 90%;
+          margin: auto;
+
+ }
+
+ th {
+        background: grey;
+ }
+th, td {
+          padding: 0.25rem;
+          text-align: left;
+          border: 1px solid #ccc;
+ }
+tbody tr:hover {
+          background: #f2f1ef;
+ }
+
+
+ /* stuff for the user bar. I lifted this from http://www.w3schools.com/css/css_navbar.asp */
+
+ ul {
+     list-style-type: none;
+     margin: 0;
+     padding: 0;
+     overflow: hidden;
+     background-color: #333;
+     height: 38px;
+ }
+
+ li {
+     float: right;
+     border-left:1px solid #bbb;
+     margin-top: 3px;
+     margin-bottom: 3px;
+     margin-right: 2px;
+     margin-left: 2px;
+
+ }
+
+ li:last-child {
+     border-left: none;
+ }
+
+ li a {
+     display: block;
+     color: white;
+     text-align: center;
+     padding: 14px 16px;
+     text-decoration: none;
+ }
+
+ li a:hover:not(.active) {
+     background-color: #111;
+ }
+
+ .active {
+     background-color: #4CAF50;
+ }
+
+ button.navButton {
+     background-color: #333;
+     border: none;
+     color: white;
+     padding: ;
+     text-align: center;
+     text-decoration: none;
+     display: inline-block;
+     font-size: 14px;
+     margin: 4px 2px;
+     cursor: pointer;
+ }
 
 
 
