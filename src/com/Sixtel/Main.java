@@ -11,7 +11,8 @@ import java.util.stream.Collectors;
 public class Main {
 
     static HashMap<String, User> userMap = new HashMap<>(); //static map to hold all of our user accounts
-    static ArrayList<Book> bookList =  new ArrayList<>(); //static list to hold all books in our inventory
+    static  HashMap<Integer, Book> bookMap = new HashMap<>(); //need to be able to access our books by an ID
+   // static ArrayList<Book> bookList =  new ArrayList<>(); //static list to hold all books in our inventory. I have to have this because of Mustache.
     static boolean passMisMatch = false; //this controls an HTML div. maybe look into better way to do this
 
 
@@ -22,27 +23,55 @@ public class Main {
         Spark.get(
                 "/",
                 ((request, response) -> {
-                    Session session = request.session();
-                    User user = getUserFromSession(session);
+                    User user = getUserFromSession(request.session());
                 //    boolean haveBook = !bookList.isEmpty();  //not used right now, will put this back in later
 
                     HashMap m = new HashMap();
                     m.put("passMisMatch", passMisMatch);  //not really used right now, will try to implement later
            //         m.put("haveBook", haveBook);
 
-                    ArrayList<Book> bookListEditable = getBookOwnership(user, bookList); //need to run my function to turn on and off editable fields based on login status
+                    ArrayList<Book> bookListEditable = new ArrayList<Book>();
+
+                    for (Book b : bookMap.values()) {
+                        bookListEditable.add(b);
+                    }
+
+                    bookListEditable = getBookOwnership(user, bookListEditable);
+
+
+//                    ArrayList<Book> bookListEditable = getBookOwnership(user, bookList); //need to run my function to turn on and off editable fields based on login status
                     m.put("bookList", bookListEditable);
 
 
                     if (user != null) {
                         m.put("user", user); //link to the user
                         m.put("userName", user.getName());  //get the name, this is a little redundant right now, need to work on
-
                         return new ModelAndView(m, "home.html");
                     } else {
                         return new ModelAndView(m, "home.html");
                     }
+                }),
+        new MustacheTemplateEngine()
+        );
 
+        Spark.get(
+                "/edit",
+                ((request1, response1) -> {
+                    User user = getUserFromSession(request1.session());
+                        if (user == null) {
+                            throw  new  Exception("Someone is trying to edit a book without authorization. They are not authorized");
+                    }
+
+                    int isbnIndex = Integer.valueOf(request1.queryParams("isbnIndex"));
+                    Session session = request1.session();
+                    session.attribute("isbnIndex", isbnIndex);
+
+                    Book b = bookMap.get(isbnIndex);
+
+                    HashMap m = new HashMap();
+
+                    m.put("book", b);
+                    return new ModelAndView(m, "edit.html");
                 }),
         new MustacheTemplateEngine()
         );
@@ -98,7 +127,8 @@ public class Main {
                     //can we make an object?
                     Book b = new Book(title, author, description, isbn, year, rating, user);
                     //can we add it? ... .. .... Who is we? Hello?
-                    bookList.add(b);
+                  //  bookList.add(b);
+                    bookMap.put(isbn, b);
                  //   bookMap.put(b.getIsbn(), b);
                     response.redirect("/");
                     return "";
@@ -115,10 +145,51 @@ public class Main {
                     return "";
                 })
         );
+
+        Spark.post(
+                "/edit-item",
+                ((request, response) -> {
+                    User user = getUserFromSession(request.session());
+                    int isbnIndex = getIsbnFromSession(request.session());
+
+                    Book oldBook = bookMap.get(isbnIndex);
+
+                    //get all my fields
+                    String title = request.queryParams("bookTitleInput");
+                    String author = request.queryParams("bookAuthorInput");
+                    String description = request.queryParams("bookDescriptionInput");
+                    char rating = request.queryParams("bookRatingInput").charAt(0);
+                    int year = Integer.parseInt(request.queryParams("bookYearInput"));
+                    //for some reason i could not do this all in one go ??
+                    String isbnString = request.queryParams("bookIsbnInput");
+                    int isbn = Integer.parseInt(isbnString);
+
+                    Book bookEdited = new Book(title, author, description, isbn, year, rating, user);
+
+
+                    bookMap.remove(isbnIndex); //have to do this in case we changed the ISBN
+                    bookMap.put(isbn, bookEdited); //this should update the map
+
+
+//                    //uuhhm...this may go through the arraylist and replace the book. Maybe.
+//                    bookList = bookList.stream()
+//                            .map((book) -> {
+//                                if (book.equals(oldBook)) {
+//                                    return bookEdited;
+//                                } else {
+//                                    return book;
+//                                }
+//                            })
+//                            .collect(Collectors.toCollection(ArrayList<Book>::new));
+
+                    response.redirect("/");
+                    return "";
+                })
+        );
     }
 
 
-    //stream reader function that will set an editable field within Book
+    //stream function that will set an editable field within Book
     //this runs via mustaches interaction behavior with an ArrayList
     static ArrayList<Book> getBookOwnership(User u, ArrayList<Book> bookList) {
         bookList = bookList.stream()
@@ -139,6 +210,11 @@ public class Main {
     static User getUserFromSession(Session session) {
         String name = session.attribute("userName");
         return userMap.get(name);
+    }
+
+    static int getIsbnFromSession(Session session) {
+        int isbn = session.attribute("isbnIndex");
+        return isbn;
     }
 
 

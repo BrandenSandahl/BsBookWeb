@@ -11,7 +11,7 @@ public class Book {
     private User owner;
     String link;
 
-    private final char[] RATINGS = {'A', 'B', 'C', 'D'};
+    //private final char[] RATINGS = {'A', 'B', 'C', 'D'};
 
 
     //constructors
@@ -98,7 +98,7 @@ public class Book {
     }
 
     public void setLink(String name) {
-        this.link = (name.equals(this.getOwner().getName())) ? "<a href=\"/edit?isbn=" + this.isbn + "\">Edit</a>" : "FALSE" ;
+        this.link = (name.equals(this.getOwner().getName())) ? "<a href=\"/edit?isbnIndex=" + this.isbn + "\">Edit</a>" : "FALSE" ;
     }
 
     //easy way to display input

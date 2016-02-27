@@ -1,0 +1,32 @@
+div#mainContent {
+    width: 80%
+    clear: both;
+    margin: auto;
+    padding: 75px 75px 75px 75px;
+}
+
+fieldset {
+        background: #f2f1ef;
+        clear: both;
+        }
+
+label {
+        width: 8em;
+        text-align: left;
+        margin-right: 0.5em;
+        margin-top: 0.4em;
+        display: block;
+ }
+
+input {
+        padding: 8px;
+        border: solid 1px #dcdcdc;
+        transition: box-shadow 0.3s, border 0.3s;
+        display: inline;
+        }
+
+input:focus,
+input.focus {
+        border: solid 1px #707070;
+        box-shadow: 0 0 5px 1px #969696;
+        }
