@@ -115,11 +115,10 @@ public class Main {
                     return "";
                 })
         );
-
     }
 
 
-    //stream reader function that will set a editable field within Book
+    //stream reader function that will set an editable field within Book
     //this runs via mustaches interaction behavior with an ArrayList
     static ArrayList<Book> getBookOwnership(User u, ArrayList<Book> bookList) {
         bookList = bookList.stream()
@@ -133,7 +132,6 @@ public class Main {
                     }
                 })
                 .collect(Collectors.toCollection(ArrayList<Book>::new));
-
         return bookList;
     }
 
@@ -141,8 +139,6 @@ public class Main {
     static User getUserFromSession(Session session) {
         String name = session.attribute("userName");
         return userMap.get(name);
-
-
     }
 
 
