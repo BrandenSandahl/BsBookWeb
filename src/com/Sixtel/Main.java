@@ -6,17 +6,17 @@ import spark.template.mustache.MustacheTemplateEngine;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.stream.Collectors;
 
 public class Main {
 
     static HashMap<String, User> userMap = new HashMap<>(); //static map to hold all of our user accounts
     static ArrayList<Book> bookList =  new ArrayList<>(); //static list to hold all books in our inventory
-   // static HashMap<Integer, Book> bookMap = new HashMap<>(); //static map to hold all the books in our inventory
     static boolean passMisMatch = false; //this controls an HTML div. maybe look into better way to do this
 
 
     public static void main(String[] args) {
-        Spark.externalStaticFileLocation("public");
+        Spark.externalStaticFileLocation("public"); //link to location of CSS files
         Spark.init();
 
         Spark.get(
@@ -24,21 +24,20 @@ public class Main {
                 ((request, response) -> {
                     Session session = request.session();
                     User user = getUserFromSession(session);
-
-                    boolean haveBook = !bookList.isEmpty();
-//                    boolean test = false;
-//
-//                    if (haveBook) {
-//                         test = bookList.get(0).allowEdit(user);
-//                    }
+                //    boolean haveBook = !bookList.isEmpty();  //not used right now, will put this back in later
 
                     HashMap m = new HashMap();
-                    m.put("bookList", bookList);
-                    m.put("passMisMatch", passMisMatch);
-                    m.put("haveBook", haveBook);
+                    m.put("passMisMatch", passMisMatch);  //not really used right now, will try to implement later
+           //         m.put("haveBook", haveBook);
+
+                    ArrayList<Book> bookListEditable = getBookOwnership(user, bookList); //need to run my function to turn on and off editable fields based on login status
+                    m.put("bookList", bookListEditable);
+
+
                     if (user != null) {
-                        m.put("user", user); //login user if there is a user
-                        m.put("userName", user.getName());
+                        m.put("user", user); //link to the user
+                        m.put("userName", user.getName());  //get the name, this is a little redundant right now, need to work on
+
                         return new ModelAndView(m, "home.html");
                     } else {
                         return new ModelAndView(m, "home.html");
@@ -118,6 +117,26 @@ public class Main {
         );
 
     }
+
+
+    //stream reader function that will set a editable field within Book
+    //this runs via mustaches interaction behavior with an ArrayList
+    static ArrayList<Book> getBookOwnership(User u, ArrayList<Book> bookList) {
+        bookList = bookList.stream()
+                .map((book) -> {
+                    if (u != null) {
+                        book.setLink(u.getName());
+                        return book;
+                    } else {
+                        book.setLink("");
+                        return book;
+                    }
+                })
+                .collect(Collectors.toCollection(ArrayList<Book>::new));
+
+        return bookList;
+    }
+
 
     static User getUserFromSession(Session session) {
         String name = session.attribute("userName");

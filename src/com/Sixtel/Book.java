@@ -9,14 +9,7 @@ public class Book {
     private int isbn, year;
     private char rating;
     private User owner;
-
-    String link = "<a href=\"/edit?isbn={{isbn}}\">";
-
-    //anon function to tell me if the user is the owner of the item.
-    String allowEdit(String name) {
-      return (name.equals(this.owner.getName())) ? "TRUE" : "FALSE" ;
-   }
-
+    String link;
 
     private final char[] RATINGS = {'A', 'B', 'C', 'D'};
 
@@ -100,7 +93,13 @@ public class Book {
         this.owner = owner;
     }
 
+    public String getLink() {
+        return link;
+    }
 
+    public void setLink(String name) {
+        this.link = (name.equals(this.getOwner().getName())) ? "<a href=\"/edit?isbn=" + this.isbn + "\">Edit</a>" : "FALSE" ;
+    }
 
     //easy way to display input
     @Override
