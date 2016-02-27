@@ -98,7 +98,7 @@ public class Book {
     }
 
     public void setLink(String name) {
-        this.link = (name.equals(this.getOwner().getName())) ? "<a href=\"/edit?isbnIndex=" + this.isbn + "\">Edit</a>" : "FALSE" ;
+        this.link = (name.equals(this.getOwner().getName())) ? "<a href=\"/edit?isbnIndex=" + this.isbn + "\">Edit</a><br /><form action=\"delete\" method=\"post\"><a href=\"/?isbnIndex=" + this.isbn + "\">Delete</a></form>" : "" ;
     }
 
     //easy way to display input

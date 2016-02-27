@@ -12,7 +12,6 @@ public class Main {
 
     static HashMap<String, User> userMap = new HashMap<>(); //static map to hold all of our user accounts
     static  HashMap<Integer, Book> bookMap = new HashMap<>(); //need to be able to access our books by an ID
-   // static ArrayList<Book> bookList =  new ArrayList<>(); //static list to hold all books in our inventory. I have to have this because of Mustache.
     static boolean passMisMatch = false; //this controls an HTML div. maybe look into better way to do this
 
 
@@ -24,24 +23,20 @@ public class Main {
                 "/",
                 ((request, response) -> {
                     User user = getUserFromSession(request.session());
-                //    boolean haveBook = !bookList.isEmpty();  //not used right now, will put this back in later
+                    boolean haveBook = !bookMap.isEmpty();  //not used right now, will put this back in later
 
                     HashMap m = new HashMap();
                     m.put("passMisMatch", passMisMatch);  //not really used right now, will try to implement later
-           //         m.put("haveBook", haveBook);
+                    m.put("haveBook", haveBook);
 
-                    ArrayList<Book> bookListEditable = new ArrayList<Book>();
-
+                    //Array for mustache display purposes
+                    ArrayList<Book> bookListEditable = new ArrayList<>();
                     for (Book b : bookMap.values()) {
                         bookListEditable.add(b);
                     }
-
+                    //run through a method that checks to see if logged in user is the owner of the book, and allows editing and deletion.
                     bookListEditable = getBookOwnership(user, bookListEditable);
-
-
-//                    ArrayList<Book> bookListEditable = getBookOwnership(user, bookList); //need to run my function to turn on and off editable fields based on login status
                     m.put("bookList", bookListEditable);
-
 
                     if (user != null) {
                         m.put("user", user); //link to the user
@@ -59,18 +54,18 @@ public class Main {
                 ((request1, response1) -> {
                     User user = getUserFromSession(request1.session());
                         if (user == null) {
-                            throw  new  Exception("Someone is trying to edit a book without authorization. They are not authorized");
+                            throw  new  Exception("Someone is trying to edit a book without authorization. They are not authorized. There is no authorization.");
                     }
-
+                    //get the book object the user clicked on
                     int isbnIndex = Integer.valueOf(request1.queryParams("isbnIndex"));
                     Session session = request1.session();
-                    session.attribute("isbnIndex", isbnIndex);
+                    session.attribute("isbnIndex", isbnIndex);  //add book into session
 
                     Book b = bookMap.get(isbnIndex);
 
                     HashMap m = new HashMap();
 
-                    m.put("book", b);
+                    m.put("book", b); //place book in the map so we can populate a page with the books info.
                     return new ModelAndView(m, "edit.html");
                 }),
         new MustacheTemplateEngine()
@@ -127,13 +122,12 @@ public class Main {
                     //can we make an object?
                     Book b = new Book(title, author, description, isbn, year, rating, user);
                     //can we add it? ... .. .... Who is we? Hello?
-                  //  bookList.add(b);
                     bookMap.put(isbn, b);
-                 //   bookMap.put(b.getIsbn(), b);
                     response.redirect("/");
                     return "";
                 })
         );
+
 
         Spark.post(
                 "/logout",
@@ -152,7 +146,6 @@ public class Main {
                     User user = getUserFromSession(request.session());
                     int isbnIndex = getIsbnFromSession(request.session());
 
-                    Book oldBook = bookMap.get(isbnIndex);
 
                     //get all my fields
                     String title = request.queryParams("bookTitleInput");
@@ -171,21 +164,24 @@ public class Main {
                     bookMap.put(isbn, bookEdited); //this should update the map
 
 
-//                    //uuhhm...this may go through the arraylist and replace the book. Maybe.
-//                    bookList = bookList.stream()
-//                            .map((book) -> {
-//                                if (book.equals(oldBook)) {
-//                                    return bookEdited;
-//                                } else {
-//                                    return book;
-//                                }
-//                            })
-//                            .collect(Collectors.toCollection(ArrayList<Book>::new));
-
                     response.redirect("/");
                     return "";
                 })
         );
+
+        Spark.post(
+                "/delete",
+                ((request1, response1) -> {
+                    int isbnIndex =getIsbnFromSession(request1.session());
+
+                    bookMap.remove(isbnIndex);
+
+                    response1.redirect("/");
+                    return "";
+                })
+        );
+
+
     }
 
 
@@ -216,6 +212,7 @@ public class Main {
         int isbn = session.attribute("isbnIndex");
         return isbn;
     }
+
 
 
 }

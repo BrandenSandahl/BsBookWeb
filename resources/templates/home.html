@@ -54,9 +54,7 @@
 
 
 <div id="mainContent">
-<!-- only display if there is a logged in user -->
 {{#user}}
-
 
 <form action="/enter-item" method="post">
     <fieldset>
@@ -101,6 +99,7 @@
     {{/user}}
 
 
+    {{#haveBook}}
     <p>
 <table>
     <thead>
@@ -135,6 +134,7 @@
     </tbody>
 </table>
     </p>
+    {{/haveBook}}
 
     </div>
 
