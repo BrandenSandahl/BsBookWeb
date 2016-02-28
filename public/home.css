@@ -119,5 +119,34 @@ tbody tr:hover {
      cursor: pointer;
  }
 
+ a#edit {
+  margin-left: 4px;
+ }
+ a#edit:visited {
+  color: #0000EE;
+ }
+
+ button#noShow {
+
+   	background-color: inherit;
+   	cursor:pointer;
+   	color:#0000EE;
+    border: none;
+   	font-size:14px;
+   	padding:0px 0px 0px 0px;
+   	text-decoration: underline;
+ }
+
+ button#noShow:hover {
+   	background-color:#f2f1ef;
+    	cursor:pointer;
+    	color:#0000EE;
+     border: none;
+    	font-size:14px;
+    	padding:0px 0px 0px 0px;
+    	text-decoration: underline;
+
+ }
+
 
 

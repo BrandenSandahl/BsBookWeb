@@ -49,6 +49,24 @@ public class Main {
         new MustacheTemplateEngine()
         );
 
+
+        Spark.get(
+                "/view",
+                ((request1, response1) -> {
+                    //get the book object the user clicked on
+                    User user = getUserFromSession(request1.session());
+                    int isbnIndex = Integer.valueOf(request1.queryParams("isbnIndex"));
+
+                    Book b = bookMap.get(isbnIndex);
+
+                    HashMap m = new HashMap();
+                    m.put("book", b); //place book in the map so we can populate a page with the books info.
+                    return new ModelAndView(m, "view.html");
+                }),
+                new MustacheTemplateEngine()
+        );
+
+
         Spark.get(
                 "/edit",
                 ((request1, response1) -> {
@@ -172,7 +190,8 @@ public class Main {
         Spark.post(
                 "/delete",
                 ((request1, response1) -> {
-                    int isbnIndex =getIsbnFromSession(request1.session());
+                   // int isbnIndex =getIsbnFromSession(request1.session());
+                    int isbnIndex = Integer.parseInt(request1.queryParams("isbnIndex"));
 
                     bookMap.remove(isbnIndex);
 

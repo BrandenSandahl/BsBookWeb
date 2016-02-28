@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="home.css" type="text/css" rel="stylesheet" />
+    <meta charset="UTF-8">
+    <title>View Book</title>
+</head>
+<body>
+
+{{{header}}}
+
+
+<div id="mainContent">
+    {{#book}}
+    <form action="view" method="post">
+        <fieldset>
+            <legend>Viewing {{title}}</legend>
+            <p>
+            <div style="float:left;margin-right:20px;">
+                <label for="bookTitleInput">Title</label>
+                <input type="text" name="bookTitleInput" value="{{title}}" disabled />
+            </div>
+            <div style="float:left;">
+                <label for="bookAuthorInput">Author</label>
+                <input type="text" name="bookAuthorInput" value="{{author}}" disabled />
+            </div>
+            </p>
+            <p style="clear:both;">
+            <div style="float:left;margin-right:20px;">
+                <label for="bookYearInput">Year</label>
+                <input type="number" name="bookYearInput" value="{{year}}" disabled />
+            </div>
+            <div style="float:left;margin-right:20px;">
+                <label for="bookIsbnInput">Isbn</label>
+                <input type="number" name="bookIsbnInput" value="{{isbn}}" disabled/>
+            </div>
+            <div style="float:left;">
+                <label for="bookRatingInput">Rating</label>
+                <input type="text" name="bookRatingInput" value="{{rating}}" disabled/>
+            </div>
+            </p>
+            <p style="clear:both;">
+                <label for="bookDescriptionInput">Short Description</label>
+                <textarea name="bookDescriptionInput" rows="5" cols="50" disabled>{{shortDescription}}</textarea>
+            </p>
+            <a href="/"><button type="button">Go Back</button></a>
+        </fieldset>
+    </form>
+    {{/book}}
+</div>
+
+</body>
+</html>
