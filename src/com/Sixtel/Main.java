@@ -41,6 +41,7 @@ public class Main {
                     //Array for mustache display purposes
                     ArrayList<Book> bookListEditable = new ArrayList<>();
                     for (Book b : bookMap.values()) {
+                        //can set an index value in here bases on sizeOf method
                         bookListEditable.add(b);
                     }
 
@@ -191,6 +192,8 @@ public class Main {
                 "/edit-item",
                 ((request, response) -> {
                     User user = getUserFromSession(request.session());
+
+                    //this could be sent in a hidden Input field
                     int isbnIndex = getIsbnFromSession(request.session());
 
 
@@ -235,10 +238,10 @@ public class Main {
         bookList = bookList.stream()
                 .map((book) -> {
                     if (u != null) {
-                        book.setLink(u.getName());
+                        book.setOwner(u.getName().equals(book.getOwner().getName()));
                         return book;
                     } else {
-                        book.setLink("");
+                        book.setOwner(false);
                         return book;
                     }
                 })

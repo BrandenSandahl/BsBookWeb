@@ -9,7 +9,7 @@ public class Book {
     private int isbn, year;
     private char rating;
     private User owner;
-    String link;
+    boolean isOwner;
 
     //private final char[] RATINGS = {'A', 'B', 'C', 'D'};
 
@@ -93,17 +93,14 @@ public class Book {
         this.owner = owner;
     }
 
-    public String getLink() {
-        return link;
+
+
+    public boolean isOwner() {
+        return isOwner;
     }
 
-    public void setLink(String name) {
-        this.link = (name.equals(this.getOwner().getName())) ? "<a id=\"edit\" href=\"/edit?isbnIndex=" + this.isbn + "\">Edit</a><br />" +
-                                                               "<form action=\"delete\" method=\"post\">" +
-                                                               "<input name=\"isbnIndex\"  type=\"hidden\" value=\"" + this.isbn + "\">" +
-                                                               "<button id=\"noShow\" type=\"submit\">Delete</button></form>" :
-                                                               //ELSE
-                                                              "<a id=\"view\" href=\"/view?isbnIndex=" + this.isbn + "\">View</a><br />";
+    public void setOwner(boolean owner) {
+        isOwner = owner;
     }
 
     //easy way to display input
