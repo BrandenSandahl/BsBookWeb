@@ -1,0 +1,35 @@
+{{#user}}
+<!-- I show up if the user IS logged in -->
+<ul>
+    <li>
+<span id="logout">
+<form action="/logout" method="post">
+    <button class="navButton" type="submit">Logout</button>
+</form>
+</span>
+    </li>
+    <li><a href="/">{{name}}</a></li>
+</ul>
+{{/user}}
+
+
+{{^user}}
+<!-- I show up if the user is NOT logged in -->
+<ul>
+<span id="login">
+<form action="/login" method="post">
+    <li><button class="navButton" type="submit">Submit</button></li>
+    <li><input type="password" name="passwordInput" placeholder="User Password" /></li>
+    <li><input type="text" name="nameInput" placeholder="User Name" /></li>
+</form>
+</span>
+    {{#passMisMatch}}
+    <li>
+        You have entered an invalid password.
+    </li>
+
+    {{/passMisMatch}}
+</ul>
+
+{{/user}}
+

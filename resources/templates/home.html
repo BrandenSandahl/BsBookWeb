@@ -1,49 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link href="home.css" rel="stylesheet" type="text/css" />
+    <link href="home.css" rel="stylesheet" type="text/css" />"
     <meta charset="UTF-8">
     <title>B's Bookstore</title>
 </head>
 
 <body>
 
-
-{{#user}}
-<!-- I show up if the user IS logged in -->
-<ul>
-    <li>
-<span id="logout">
-<form action="/logout" method="post">
-    <button class="navButton" type="submit">Logout</button>
-</form>
-</span>
-    </li>
-    <li><a href="/">{{name}}</a></li>
-</ul>
-{{/user}}
-
-
-{{^user}}
-<!-- I show up if the user is NOT logged in -->
-<ul>
-<span id="login">
-<form action="/login" method="post">
-    <li><button class="navButton" type="submit">Submit</button></li>
-   <li><input type="password" name="passwordInput" placeholder="User Password" /></li>
-    <li><input type="text" name="nameInput" placeholder="User Name" /></li>
-</form>
-</span>
-{{#passMisMatch}}
-<li>
-    You have entered an invalid password.
-</li>
-
-{{/passMisMatch}}
-</ul>
-
-{{/user}}
-
+{{>header}}
 
 <div id="mainContent">
 {{#user}}
@@ -107,8 +72,8 @@
     </thead>
     <tfoot>
     <tr>
-    <td>Previous</td>
-    <td>Next</td>
+    <td>{{#previous}}<a id="prev" href="/?offset={{previous}}">Previous</a>{{/previous}}</td>
+    <td>{{#next}}<a id="next" href="/?offset={{next}}">Next</a>{{/next}}</td>
     </tr>
     </tfoot>
     <tbody>

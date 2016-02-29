@@ -1,11 +1,18 @@
 package com.Sixtel;
 
+import jodd.json.JsonParser;
+import jodd.json.JsonSerializer;
 import spark.ModelAndView;
 import spark.*;
 import spark.template.mustache.MustacheTemplateEngine;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class Main {
@@ -17,13 +24,15 @@ public class Main {
 
     public static void main(String[] args) {
         Spark.externalStaticFileLocation("public"); //link to location of CSS files
+
         Spark.init();
 
         Spark.get(
                 "/",
                 ((request, response) -> {
                     User user = getUserFromSession(request.session());
-                    boolean haveBook = !bookMap.isEmpty();  //not used right now, will put this back in later
+                    boolean haveBook = !bookMap.isEmpty();  //hides the book table if there are no items in it
+
 
                     HashMap m = new HashMap();
                     m.put("passMisMatch", passMisMatch);  //not really used right now, will try to implement later
@@ -34,9 +43,29 @@ public class Main {
                     for (Book b : bookMap.values()) {
                         bookListEditable.add(b);
                     }
+
+                    //pagination stuff
+                    String nextString = request.queryParams("offset"); //this only sends when user directly interacts with something that causes it to send.
+                    int subStart = 0; //0 if it's nothing else
+                    if (nextString != null) {   //this starts out null because it's not sending anything until you click one of the two.
+                        subStart = Integer.parseInt(nextString);
+                    }
+                    int subTo = subStart + 5;
+
+                    //this will keep the array from going out of bounds. I'm just constraining the sub method to the size of the array
+                    if (subTo > bookListEditable.size()) {
+                        subTo = bookListEditable.size();
+                    }
+
+
+
                     //run through a method that checks to see if logged in user is the owner of the book, and allows editing and deletion.
                     bookListEditable = getBookOwnership(user, bookListEditable);
-                    m.put("bookList", bookListEditable);
+                    m.put("bookList", bookListEditable.subList(subStart, subTo));
+                    //next and prev anchors
+                    m.put("next", ((subTo != (bookListEditable.size())) ? subStart + 5 : null));  //adjust next link, hide if the end of my subList is at the end of the ArrayList
+                    m.put("previous", (subStart != 0) ? subStart - 5 : null); //adjust previous link, hide if it's at 0.
+
 
                     if (user != null) {
                         m.put("user", user); //link to the user
@@ -54,7 +83,7 @@ public class Main {
                 "/view",
                 ((request1, response1) -> {
                     //get the book object the user clicked on
-                    User user = getUserFromSession(request1.session());
+                   // User user = getUserFromSession(request1.session());
                     int isbnIndex = Integer.valueOf(request1.queryParams("isbnIndex"));
 
                     Book b = bookMap.get(isbnIndex);
@@ -190,7 +219,6 @@ public class Main {
         Spark.post(
                 "/delete",
                 ((request1, response1) -> {
-                   // int isbnIndex =getIsbnFromSession(request1.session());
                     int isbnIndex = Integer.parseInt(request1.queryParams("isbnIndex"));
 
                     bookMap.remove(isbnIndex);
@@ -199,10 +227,7 @@ public class Main {
                     return "";
                 })
         );
-
-
     }
-
 
     //stream function that will set an editable field within Book
     //this runs via mustaches interaction behavior with an ArrayList
@@ -232,6 +257,40 @@ public class Main {
         return isbn;
     }
 
+
+//    static HashMap<String, User> readFromJson() throws FileNotFoundException {
+//
+//
+//        JsonParser parser = new JsonParser();
+//        File f = new File("microMessages.json");
+//        Scanner scanner = new Scanner(f);
+//
+//        scanner.useDelimiter("\\Z");
+//        String data = scanner.next();
+//
+//        JsonWrapper wrappedData = parser.parse(data, JsonWrapper.class);
+//
+//        HashMap<String, User> m = new HashMap<>();
+//
+//        wrappedData.getWrappedData().forEach((k, v) -> m.put(k, v));  //anon function that populates a map
+//
+//        return m;
+//    }
+//
+//    static void saveToJson() throws IOException {
+//        JsonSerializer serializer = new JsonSerializer();
+//        File f = new File("microMessages.json");
+//        FileWriter fw = new FileWriter(f);
+//
+//        JsonWrapper wrapper = new JsonWrapper(bookMap);  //special class made solely to wrap the hashmap containing users
+//
+//        //note this little call to setClassMetadataName here. Had to do that to make this work. From Docs.
+//        String serialized = serializer.deep(true).include("*").serialize(wrapper);
+//
+//        fw.write(serialized);
+//        fw.close();
+//    }
+//
 
 
 }
