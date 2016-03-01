@@ -5,11 +5,12 @@ package com.Sixtel;
  */
 public class Book {
 
-    private String title, author, shortDescription;
-    private int isbn, year;
+    private String title, author, description;
+    private int isbn, year, bookId;
     private char rating;
-    private User owner;
+    private String ownerName;
     boolean isOwner;
+   private User owner;
 
     //private final char[] RATINGS = {'A', 'B', 'C', 'D'};
 
@@ -18,24 +19,34 @@ public class Book {
     public Book() {
     }
 
-    public Book(String title, String author, String shortDescription, int isbn, int year, char rating, User owner) {
+    public Book(String title, String author, String description, int isbn, int year, char rating, User owner) {
         this.title = title;
         this.author = author;
-        this.shortDescription = shortDescription;
+        this.description = description;
         this.isbn = isbn;
         this.year = year;
         this.rating = rating;
         this.owner = owner;
     }
 
-
-    //getters&setters with some custom functionality to get the user input
-    public String getShortDescription() {
-        return shortDescription;
+    public Book(String title, String author, String description, int isbn, int year, char rating, String ownerName) {
+        this.title = title;
+        this.author = author;
+        this.description = description;
+        this.isbn = isbn;
+        this.year = year;
+        this.rating = rating;
+        this.ownerName = ownerName;
     }
 
-    public void setShortDescription(String shortDescription) {
-        this.shortDescription = shortDescription;
+
+    //getters&setters with some custom functionality to get the user input
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getTitle() {
@@ -85,17 +96,17 @@ public class Book {
         this.rating = rating;
     }
 
-    public User getOwner() {
-        return owner;
+    public String getOwner() {
+        return ownerName;
     }
 
-    public void setOwner(User owner) {
-        this.owner = owner;
+    public void setOwnerName(String ownerName) {
+        this.ownerName = ownerName;
     }
 
 
 
-    public boolean isOwner() {
+    public boolean getOwnerName() {
         return isOwner;
     }
 
@@ -103,12 +114,20 @@ public class Book {
         isOwner = owner;
     }
 
+    public int getBookId() {
+        return bookId;
+    }
+
+    public void setBookId(int bookId) {
+        this.bookId = bookId;
+    }
+
     //easy way to display input
     @Override
     public String toString() {
         return "Book{" +
                 "author='" + author + '\'' +
-                ", shortDescription='" + shortDescription + '\'' +
+                ", description='" + description + '\'' +
                 ", isbn=" + isbn +
                 ", year=" + year +
                 ", rating=" + rating +

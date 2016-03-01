@@ -1,18 +1,13 @@
 package com.Sixtel;
 
-import jodd.json.JsonParser;
-import jodd.json.JsonSerializer;
 import spark.ModelAndView;
 import spark.*;
 import spark.template.mustache.MustacheTemplateEngine;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
+
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class Main {
@@ -22,7 +17,88 @@ public class Main {
     static boolean passMisMatch = false; //this controls an HTML div. maybe look into better way to do this
 
 
-    public static void main(String[] args) {
+
+    /** Begin DB stuff
+       Methods for DB interactions
+    */
+
+    public static void createTables(Connection con) throws SQLException {
+        Statement stmt = con.createStatement();
+        stmt.execute("CREATE TABLE IF NOT EXISTS user (user_id IDENTITY, user_name VARCHAR, user_password VARCHAR)");
+        stmt.execute("CREATE TABLE IF NOT EXISTS book (" +
+                "book_id IDENTITY, book_user_id INT, book_title VARCHAR, book_author VARCHAR, book_description VARCHAR, " +
+                "isbn INT, book_year INT, book_rating CHAR )");
+    }
+
+    public static void createUser(Connection conn, String name, String password) throws SQLException {
+        PreparedStatement stmt = conn.prepareStatement("INSERT INTO user VALUES (null, ?, ?)");
+        stmt.setString(1, name);
+        stmt.setString(2, password);
+        stmt.execute();
+    }
+
+    public static void createBook(Connection conn,String title, String author, String description,
+                                  int isbn, int year, char rating, int owner_id) throws SQLException {
+        PreparedStatement stmt = conn.prepareStatement("INSERT INTO book VALUES (null, ?, ?, ?, ?, ?, ?, ?)");
+        stmt.setInt(1, owner_id); //remember this is going on here. this shit is going on. it's going down. it's happening.
+        stmt.setString(2, title);
+        stmt.setString(3, author);
+        stmt.setString(4, description);
+        stmt.setInt(5, isbn);
+        stmt.setInt(6, year);
+        String ratingString = String.valueOf(rating);
+        stmt.setString(7, ratingString);
+        stmt.execute();
+    }
+
+    public static User selectUser(Connection conn, String userName) throws SQLException {
+        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM user WHERE user_name = ?");
+        stmt.setString(1, userName);
+
+        ResultSet results = stmt.executeQuery();
+
+        if (results.next()) {
+            int id = results.getInt("user_id");
+            String name = results.getString("user_name");
+            String password = results.getString("user_password");
+
+            User u = new User(name, password);
+            u.setId(id);
+            return  u;
+        }
+        return null;
+    }
+
+    public static Book selectBook(Connection conn, int bookId) throws SQLException {
+        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM book INNER JOIN user ON book_user_id = user_id WHERE book_id = ?");
+        stmt.setInt(1, bookId);
+
+        ResultSet results = stmt.executeQuery();
+        if (results.next()) {
+            String title = results.getString("book_title");
+            String author = results.getString("book_author");
+            String description = results.getString("book_description");
+            int isbn = results.getInt("isbn");
+            int year = results.getInt("book_year");
+            char rating = results.getString("book_rating").charAt(0);
+            String owner = results.getString("user.user_name");
+
+            Book b = new Book(title, author, description, isbn, year, rating, owner);
+            return b;
+        }
+        return null;
+    }
+
+
+
+
+
+
+
+
+
+    public static void main(String[] args) throws SQLException {
+        Connection conn = DriverManager.getConnection("jdbc:h2:./main");
         Spark.externalStaticFileLocation("public"); //link to location of CSS files
 
         Spark.init();
@@ -70,7 +146,7 @@ public class Main {
 
                     if (user != null) {
                         m.put("user", user); //link to the user
-                        m.put("userName", user.getName());  //get the name, this is a little redundant right now, need to work on
+                        m.put("userName", user.getUserName());  //get the name, this is a little redundant right now, need to work on
                         return new ModelAndView(m, "home.html");
                     } else {
                         return new ModelAndView(m, "home.html");
@@ -135,7 +211,7 @@ public class Main {
 
                         response.redirect("/");
                         return "";
-                    } else if ((userMap.get(name).getPassword().equalsIgnoreCase(pass))) {   //if the user does exist and pass matches
+                    } else if ((userMap.get(name).getUserPassword().equalsIgnoreCase(pass))) {   //if the user does exist and pass matches
                         //create session for user
                         Session session = request.session();
                         session.attribute("userName", name);
@@ -238,7 +314,7 @@ public class Main {
         bookList = bookList.stream()
                 .map((book) -> {
                     if (u != null) {
-                        book.setOwner(u.getName().equals(book.getOwner().getName()));
+                       // book.setOwner(u.getUserName().equals(book.getOwner().getUserName()));
                         return book;
                     } else {
                         book.setOwner(false);
@@ -249,7 +325,6 @@ public class Main {
         return bookList;
     }
 
-
     static User getUserFromSession(Session session) {
         String name = session.attribute("userName");
         return userMap.get(name);
@@ -259,41 +334,5 @@ public class Main {
         int isbn = session.attribute("isbnIndex");
         return isbn;
     }
-
-
-//    static HashMap<String, User> readFromJson() throws FileNotFoundException {
-//
-//
-//        JsonParser parser = new JsonParser();
-//        File f = new File("microMessages.json");
-//        Scanner scanner = new Scanner(f);
-//
-//        scanner.useDelimiter("\\Z");
-//        String data = scanner.next();
-//
-//        JsonWrapper wrappedData = parser.parse(data, JsonWrapper.class);
-//
-//        HashMap<String, User> m = new HashMap<>();
-//
-//        wrappedData.getWrappedData().forEach((k, v) -> m.put(k, v));  //anon function that populates a map
-//
-//        return m;
-//    }
-//
-//    static void saveToJson() throws IOException {
-//        JsonSerializer serializer = new JsonSerializer();
-//        File f = new File("microMessages.json");
-//        FileWriter fw = new FileWriter(f);
-//
-//        JsonWrapper wrapper = new JsonWrapper(bookMap);  //special class made solely to wrap the hashmap containing users
-//
-//        //note this little call to setClassMetadataName here. Had to do that to make this work. From Docs.
-//        String serialized = serializer.deep(true).include("*").serialize(wrapper);
-//
-//        fw.write(serialized);
-//        fw.close();
-//    }
-//
-
 
 }

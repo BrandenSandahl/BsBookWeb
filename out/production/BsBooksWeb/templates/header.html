@@ -8,7 +8,7 @@
 </form>
 </span>
     </li>
-    <li><a href="/">{{name}}</a></li>
+    <li><a href="/">{{userName}}</a></li>
 </ul>
 {{/user}}
 
@@ -19,13 +19,13 @@
 <span id="login">
 <form action="/login" method="post">
     <li><button class="navButton" type="submit">Submit</button></li>
-    <li><input type="password" name="passwordInput" placeholder="User Password" /></li>
-    <li><input type="text" name="nameInput" placeholder="User Name" /></li>
+    <li><input type="userPassword" userName="passwordInput" placeholder="User Password" /></li>
+    <li><input type="text" userName="nameInput" placeholder="User Name" /></li>
 </form>
 </span>
     {{#passMisMatch}}
     <li>
-        You have entered an invalid password.
+        You have entered an invalid userPassword.
     </li>
 
     {{/passMisMatch}}

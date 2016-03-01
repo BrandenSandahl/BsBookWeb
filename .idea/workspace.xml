@@ -2,13 +2,27 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6d73c640-8072-4b07-8dd2-3df080b2c40f" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/com_bluecatcode_junit_junit_4_12_extended_1_0_4.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/com_h2database_h2_1_4_191.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/tests/com/Sixtel/MainTest.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/BsBooksWeb/com/Sixtel/JsonWrapper.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/Sixtel/JsonWrapper.java" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/BsBooksWeb/com/Sixtel/Book.class" afterPath="$PROJECT_DIR$/out/production/BsBooksWeb/com/Sixtel/Book.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/BsBooksWeb/com/Sixtel/Main.class" afterPath="$PROJECT_DIR$/out/production/BsBooksWeb/com/Sixtel/Main.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/BsBooksWeb/com/Sixtel/User.class" afterPath="$PROJECT_DIR$/out/production/BsBooksWeb/com/Sixtel/User.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/BsBooksWeb.iml" afterPath="$PROJECT_DIR$/BsBooksWeb.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/BsBooksWeb/templates/edit.html" afterPath="$PROJECT_DIR$/out/production/BsBooksWeb/templates/edit.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/BsBooksWeb/templates/header.html" afterPath="$PROJECT_DIR$/out/production/BsBooksWeb/templates/header.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/BsBooksWeb/templates/home.html" afterPath="$PROJECT_DIR$/out/production/BsBooksWeb/templates/home.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/BsBooksWeb/templates/view.html" afterPath="$PROJECT_DIR$/out/production/BsBooksWeb/templates/view.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/templates/edit.html" afterPath="$PROJECT_DIR$/resources/templates/edit.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/templates/header.html" afterPath="$PROJECT_DIR$/resources/templates/header.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/templates/home.html" afterPath="$PROJECT_DIR$/resources/templates/home.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/templates/view.html" afterPath="$PROJECT_DIR$/resources/templates/view.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/Sixtel/Book.java" afterPath="$PROJECT_DIR$/src/com/Sixtel/Book.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/Sixtel/Main.java" afterPath="$PROJECT_DIR$/src/com/Sixtel/Main.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/Sixtel/User.java" afterPath="$PROJECT_DIR$/src/com/Sixtel/User.java" />
     </list>
     <ignored path="BsBooksWeb.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -30,13 +44,37 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/Sixtel/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="5.2280283">
-              <caret line="243" column="45" selection-start-line="243" selection-start-column="45" selection-end-line="243" selection-end-column="45" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="316" column="95" selection-start-line="316" selection-start-column="95" selection-end-line="316" selection-end-column="95" />
               <folding>
                 <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MainTest.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/tests/com/Sixtel/MainTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.96199524">
+              <caret line="36" column="47" selection-start-line="36" selection-start-column="47" selection-end-line="36" selection-end-column="47" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="User.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/Sixtel/User.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="33" column="24" selection-start-line="33" selection-start-column="24" selection-end-line="33" selection-end-column="24" />
+              <folding>
+                <element signature="e#684#685#0" expanded="true" />
+                <element signature="e#717#718#0" expanded="true" />
+                <element signature="e#745#746#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -45,21 +83,9 @@
       <file leaf-file-name="header.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/templates/header.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-12.791667">
+            <state vertical-scroll-proportion="-15.958333">
               <caret line="35" column="0" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="JsonWrapper.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/Sixtel/JsonWrapper.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="9" column="16" selection-start-line="9" selection-start-column="12" selection-end-line="9" selection-end-column="16" />
-              <folding>
-                <element signature="e#176#188#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -67,8 +93,8 @@
       <file leaf-file-name="home.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/templates/home.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-1.875">
-              <caret line="3" column="61" selection-start-line="3" selection-start-column="61" selection-end-line="3" selection-end-column="61" />
+            <state vertical-scroll-proportion="-10.875">
+              <caret line="48" column="51" selection-start-line="48" selection-start-column="46" selection-end-line="48" selection-end-column="51" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#fieldset#0;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#1;n#fieldset#0;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -85,7 +111,7 @@
       <file leaf-file-name="edit.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/templates/edit.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-5.625">
+            <state vertical-scroll-proportion="0.0">
               <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
               <folding />
             </state>
@@ -96,15 +122,16 @@
         <entry file="file://$PROJECT_DIR$/src/com/Sixtel/Book.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="94" column="0" selection-start-line="94" selection-start-column="0" selection-end-line="94" selection-end-column="0" />
+              <caret line="21" column="111" selection-start-line="21" selection-start-column="111" selection-end-line="21" selection-end-column="111" />
               <folding>
                 <element signature="method#Book#0;class#Book#0" expanded="false" />
-                <element signature="method#Book#1;class#Book#0" expanded="false" />
                 <element signature="method#setRating#0;class#Book#0" expanded="false" />
-                <element signature="e#2120#2121#0" expanded="true" />
-                <element signature="e#2150#2151#0" expanded="true" />
-                <element signature="e#2193#2194#0" expanded="true" />
-                <element signature="e#2224#2225#0" expanded="true" />
+                <element signature="e#2314#2315#0" expanded="true" />
+                <element signature="e#2346#2347#0" expanded="true" />
+                <element signature="e#2611#2612#0" expanded="true" />
+                <element signature="e#2640#2641#0" expanded="true" />
+                <element signature="e#2681#2682#0" expanded="true" />
+                <element signature="e#2717#2718#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -113,7 +140,7 @@
       <file leaf-file-name="view.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/templates/view.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-11.875">
+            <state vertical-scroll-proportion="0.0">
               <caret line="19" column="57" selection-start-line="19" selection-start-column="57" selection-end-line="19" selection-end-column="57" />
               <folding />
             </state>
@@ -127,6 +154,7 @@
       <list>
         <option value="HTML File" />
         <option value="Class" />
+        <option value="JUnit4 Test Class" />
       </list>
     </option>
   </component>
@@ -142,7 +170,6 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/src/com/Sixtel/Account.java" />
-        <option value="$PROJECT_DIR$/src/com/Sixtel/User.java" />
         <option value="$PROJECT_DIR$/public/edit.css" />
         <option value="$PROJECT_DIR$/public/home.css" />
         <option value="$PROJECT_DIR$/resources/templates/view.html" />
@@ -151,8 +178,10 @@
         <option value="$PROJECT_DIR$/src/com/Sixtel/JsonWrapper.java" />
         <option value="$PROJECT_DIR$/resources/templates/edit.html" />
         <option value="$PROJECT_DIR$/resources/templates/home.html" />
+        <option value="$PROJECT_DIR$/src/com/Sixtel/User.java" />
         <option value="$PROJECT_DIR$/src/com/Sixtel/Book.java" />
         <option value="$PROJECT_DIR$/src/com/Sixtel/Main.java" />
+        <option value="$PROJECT_DIR$/src/tests/com/Sixtel/MainTest.java" />
       </list>
     </option>
   </component>
@@ -193,9 +222,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -211,6 +237,28 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="BsBooksWeb" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="BsBooksWeb" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="BsBooksWeb" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tests" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Sixtel" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -280,6 +328,9 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -288,13 +339,22 @@
     <property name="Downloaded.Files.Path.Enabled" value="false" />
     <property name="Repository.Attach.JavaDocs" value="false" />
     <property name="Repository.Attach.Sources" value="false" />
-    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit4" />
   </component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RecentsManager">
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="com.Sixtel" />
+    </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+  </component>
+  <component name="RunManager" selected="JUnit.All in BsBooksWeb">
     <configuration default="false" name="Main" type="Application" factoryName="Application" temporary="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="MAIN_CLASS_NAME" value="com.Sixtel.Main" />
@@ -310,6 +370,27 @@
       <envs />
       <RunnerSettings RunnerId="Run" />
       <ConfigurationWrapper RunnerId="Run" />
+      <method />
+    </configuration>
+    <configuration default="false" name="All in BsBooksWeb" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="BsBooksWeb" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="package" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
       <method />
     </configuration>
     <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android Application">
@@ -546,12 +627,14 @@
       <listeners />
       <method />
     </configuration>
-    <list size="1">
+    <list size="2">
       <item index="0" class="java.lang.String" itemvalue="Application.Main" />
+      <item index="1" class="java.lang.String" itemvalue="JUnit.All in BsBooksWeb" />
     </list>
     <recent_temporary>
-      <list size="1">
-        <item index="0" class="java.lang.String" itemvalue="Application.Main" />
+      <list size="2">
+        <item index="0" class="java.lang.String" itemvalue="JUnit.All in BsBooksWeb" />
+        <item index="1" class="java.lang.String" itemvalue="Application.Main" />
       </list>
     </recent_temporary>
   </component>
@@ -568,9 +651,32 @@
     </task>
     <servers />
   </component>
+  <component name="TestHistory">
+    <history-entry file="All_in_BsBooksWeb - 2016.03.01 at 14h 15m 19s.xml">
+      <configuration name="All in BsBooksWeb" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="All_in_BsBooksWeb - 2016.03.01 at 14h 16m 21s.xml">
+      <configuration name="All in BsBooksWeb" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="All_in_BsBooksWeb - 2016.03.01 at 14h 16m 45s.xml">
+      <configuration name="All in BsBooksWeb" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="All_in_BsBooksWeb - 2016.03.01 at 14h 17m 57s.xml">
+      <configuration name="All in BsBooksWeb" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="All_in_BsBooksWeb - 2016.03.01 at 14h 18m 11s.xml">
+      <configuration name="All in BsBooksWeb" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="All_in_BsBooksWeb - 2016.03.01 at 14h 18m 23s.xml">
+      <configuration name="All in BsBooksWeb" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="All_in_BsBooksWeb - 2016.03.01 at 14h 45m 27s.xml">
+      <configuration name="All in BsBooksWeb" configurationId="JUnit" />
+    </history-entry>
+  </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1440" height="873" extended-state="6" />
-    <editor active="true" />
+    <frame x="0" y="23" width="1440" height="873" extended-state="1" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -583,6 +689,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3277849" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24964234" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290653" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -593,7 +700,6 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -609,7 +715,27 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="13" />
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/Sixtel/Main.java</url>
+          <line>316</line>
+          <properties />
+          <option name="timeStamp" value="15" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/Sixtel/Main.java</url>
+          <line>315</line>
+          <properties />
+          <option name="timeStamp" value="16" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/Sixtel/Main.java</url>
+          <line>317</line>
+          <properties />
+          <option name="timeStamp" value="17" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="18" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -644,16 +770,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/Sixtel/JsonWrapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="9" column="16" selection-start-line="9" selection-start-column="12" selection-end-line="9" selection-end-column="16" />
-          <folding>
-            <element signature="e#176#188#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/templates/home.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -684,12 +800,13 @@
           <caret line="100" column="76" selection-start-line="100" selection-start-column="72" selection-end-line="100" selection-end-column="76" />
           <folding>
             <element signature="method#Book#0;class#Book#0" expanded="false" />
-            <element signature="method#Book#1;class#Book#0" expanded="false" />
             <element signature="method#setRating#0;class#Book#0" expanded="false" />
-            <element signature="e#2120#2121#0" expanded="true" />
-            <element signature="e#2150#2151#0" expanded="true" />
-            <element signature="e#2193#2194#0" expanded="true" />
-            <element signature="e#2224#2225#0" expanded="true" />
+            <element signature="e#2314#2315#0" expanded="true" />
+            <element signature="e#2346#2347#0" expanded="true" />
+            <element signature="e#2611#2612#0" expanded="true" />
+            <element signature="e#2640#2641#0" expanded="true" />
+            <element signature="e#2681#2682#0" expanded="true" />
+            <element signature="e#2717#2718#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -717,16 +834,6 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="35" column="0" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/Sixtel/JsonWrapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="9" column="16" selection-start-line="9" selection-start-column="12" selection-end-line="9" selection-end-column="16" />
-          <folding>
-            <element signature="e#176#188#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -760,12 +867,13 @@
           <caret line="100" column="63" selection-start-line="100" selection-start-column="63" selection-end-line="100" selection-end-column="63" />
           <folding>
             <element signature="method#Book#0;class#Book#0" expanded="false" />
-            <element signature="method#Book#1;class#Book#0" expanded="false" />
             <element signature="method#setRating#0;class#Book#0" expanded="false" />
-            <element signature="e#2120#2121#0" expanded="true" />
-            <element signature="e#2150#2151#0" expanded="true" />
-            <element signature="e#2193#2194#0" expanded="true" />
-            <element signature="e#2224#2225#0" expanded="true" />
+            <element signature="e#2314#2315#0" expanded="true" />
+            <element signature="e#2346#2347#0" expanded="true" />
+            <element signature="e#2611#2612#0" expanded="true" />
+            <element signature="e#2640#2641#0" expanded="true" />
+            <element signature="e#2681#2682#0" expanded="true" />
+            <element signature="e#2717#2718#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -824,12 +932,13 @@
           <caret line="34" column="48" selection-start-line="34" selection-start-column="48" selection-end-line="34" selection-end-column="48" />
           <folding>
             <element signature="method#Book#0;class#Book#0" expanded="false" />
-            <element signature="method#Book#1;class#Book#0" expanded="false" />
             <element signature="method#setRating#0;class#Book#0" expanded="false" />
-            <element signature="e#2120#2121#0" expanded="true" />
-            <element signature="e#2150#2151#0" expanded="true" />
-            <element signature="e#2193#2194#0" expanded="true" />
-            <element signature="e#2224#2225#0" expanded="true" />
+            <element signature="e#2314#2315#0" expanded="true" />
+            <element signature="e#2346#2347#0" expanded="true" />
+            <element signature="e#2611#2612#0" expanded="true" />
+            <element signature="e#2640#2641#0" expanded="true" />
+            <element signature="e#2681#2682#0" expanded="true" />
+            <element signature="e#2717#2718#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -880,12 +989,13 @@
           <caret line="34" column="48" selection-start-line="34" selection-start-column="48" selection-end-line="34" selection-end-column="48" />
           <folding>
             <element signature="method#Book#0;class#Book#0" expanded="false" />
-            <element signature="method#Book#1;class#Book#0" expanded="false" />
             <element signature="method#setRating#0;class#Book#0" expanded="false" />
-            <element signature="e#2120#2121#0" expanded="true" />
-            <element signature="e#2150#2151#0" expanded="true" />
-            <element signature="e#2193#2194#0" expanded="true" />
-            <element signature="e#2224#2225#0" expanded="true" />
+            <element signature="e#2314#2315#0" expanded="true" />
+            <element signature="e#2346#2347#0" expanded="true" />
+            <element signature="e#2611#2612#0" expanded="true" />
+            <element signature="e#2640#2641#0" expanded="true" />
+            <element signature="e#2681#2682#0" expanded="true" />
+            <element signature="e#2717#2718#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -936,12 +1046,13 @@
           <caret line="34" column="48" selection-start-line="34" selection-start-column="48" selection-end-line="34" selection-end-column="48" />
           <folding>
             <element signature="method#Book#0;class#Book#0" expanded="false" />
-            <element signature="method#Book#1;class#Book#0" expanded="false" />
             <element signature="method#setRating#0;class#Book#0" expanded="false" />
-            <element signature="e#2120#2121#0" expanded="true" />
-            <element signature="e#2150#2151#0" expanded="true" />
-            <element signature="e#2193#2194#0" expanded="true" />
-            <element signature="e#2224#2225#0" expanded="true" />
+            <element signature="e#2314#2315#0" expanded="true" />
+            <element signature="e#2346#2347#0" expanded="true" />
+            <element signature="e#2611#2612#0" expanded="true" />
+            <element signature="e#2640#2641#0" expanded="true" />
+            <element signature="e#2681#2682#0" expanded="true" />
+            <element signature="e#2717#2718#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -978,12 +1089,13 @@
           <caret line="34" column="48" selection-start-line="34" selection-start-column="48" selection-end-line="34" selection-end-column="48" />
           <folding>
             <element signature="method#Book#0;class#Book#0" expanded="false" />
-            <element signature="method#Book#1;class#Book#0" expanded="false" />
             <element signature="method#setRating#0;class#Book#0" expanded="false" />
-            <element signature="e#2120#2121#0" expanded="true" />
-            <element signature="e#2150#2151#0" expanded="true" />
-            <element signature="e#2193#2194#0" expanded="true" />
-            <element signature="e#2224#2225#0" expanded="true" />
+            <element signature="e#2314#2315#0" expanded="true" />
+            <element signature="e#2346#2347#0" expanded="true" />
+            <element signature="e#2611#2612#0" expanded="true" />
+            <element signature="e#2640#2641#0" expanded="true" />
+            <element signature="e#2681#2682#0" expanded="true" />
+            <element signature="e#2717#2718#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1020,12 +1132,13 @@
           <caret line="34" column="48" selection-start-line="34" selection-start-column="48" selection-end-line="34" selection-end-column="48" />
           <folding>
             <element signature="method#Book#0;class#Book#0" expanded="false" />
-            <element signature="method#Book#1;class#Book#0" expanded="false" />
             <element signature="method#setRating#0;class#Book#0" expanded="false" />
-            <element signature="e#2120#2121#0" expanded="true" />
-            <element signature="e#2150#2151#0" expanded="true" />
-            <element signature="e#2193#2194#0" expanded="true" />
-            <element signature="e#2224#2225#0" expanded="true" />
+            <element signature="e#2314#2315#0" expanded="true" />
+            <element signature="e#2346#2347#0" expanded="true" />
+            <element signature="e#2611#2612#0" expanded="true" />
+            <element signature="e#2640#2641#0" expanded="true" />
+            <element signature="e#2681#2682#0" expanded="true" />
+            <element signature="e#2717#2718#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1079,43 +1192,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/Sixtel/User.java">
+    <entry file="file://$PROJECT_DIR$/resources/templates/edit.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="5" column="17" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
+          <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/Sixtel/JsonWrapper.java">
+    <entry file="file://$PROJECT_DIR$/resources/templates/view.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="9" column="16" selection-start-line="9" selection-start-column="12" selection-end-line="9" selection-end-column="16" />
-          <folding>
-            <element signature="e#176#188#0" expanded="true" />
-          </folding>
+          <caret line="19" column="57" selection-start-line="19" selection-start-column="57" selection-end-line="19" selection-end-column="57" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/templates/header.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-12.791667">
+        <state vertical-scroll-proportion="-15.958333">
           <caret line="35" column="0" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/templates/edit.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.625">
-          <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/templates/home.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.875">
-          <caret line="3" column="61" selection-start-line="3" selection-start-column="61" selection-end-line="3" selection-end-column="61" />
+        <state vertical-scroll-proportion="-10.875">
+          <caret line="48" column="51" selection-start-line="48" selection-start-column="46" selection-end-line="48" selection-end-column="51" />
           <folding>
             <element signature="n#style#0;n#div#0;n#fieldset#0;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#1;n#fieldset#0;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -1128,37 +1232,50 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/templates/view.html">
+    <entry file="file://$PROJECT_DIR$/src/com/Sixtel/User.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-11.875">
-          <caret line="19" column="57" selection-start-line="19" selection-start-column="57" selection-end-line="19" selection-end-column="57" />
-          <folding />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="33" column="24" selection-start-line="33" selection-start-column="24" selection-end-line="33" selection-end-column="24" />
+          <folding>
+            <element signature="e#684#685#0" expanded="true" />
+            <element signature="e#717#718#0" expanded="true" />
+            <element signature="e#745#746#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/Sixtel/Book.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="94" column="0" selection-start-line="94" selection-start-column="0" selection-end-line="94" selection-end-column="0" />
+          <caret line="21" column="111" selection-start-line="21" selection-start-column="111" selection-end-line="21" selection-end-column="111" />
           <folding>
             <element signature="method#Book#0;class#Book#0" expanded="false" />
-            <element signature="method#Book#1;class#Book#0" expanded="false" />
             <element signature="method#setRating#0;class#Book#0" expanded="false" />
-            <element signature="e#2120#2121#0" expanded="true" />
-            <element signature="e#2150#2151#0" expanded="true" />
-            <element signature="e#2193#2194#0" expanded="true" />
-            <element signature="e#2224#2225#0" expanded="true" />
+            <element signature="e#2314#2315#0" expanded="true" />
+            <element signature="e#2346#2347#0" expanded="true" />
+            <element signature="e#2611#2612#0" expanded="true" />
+            <element signature="e#2640#2641#0" expanded="true" />
+            <element signature="e#2681#2682#0" expanded="true" />
+            <element signature="e#2717#2718#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/Sixtel/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="5.2280283">
-          <caret line="243" column="45" selection-start-line="243" selection-start-column="45" selection-end-line="243" selection-end-column="45" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="316" column="95" selection-start-line="316" selection-start-column="95" selection-end-line="316" selection-end-column="95" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tests/com/Sixtel/MainTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.96199524">
+          <caret line="36" column="47" selection-start-line="36" selection-start-column="47" selection-end-line="36" selection-end-column="47" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1229,7 +1346,7 @@
       </state>
       <state key="ProjectLibrariesConfigurable.UI">
         <settings>
-          <last-edited>org.jodd:jodd-json:3.6.7</last-edited>
+          <last-edited>com.bluecatcode.junit:junit-4.12-extended:1.0.4</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>

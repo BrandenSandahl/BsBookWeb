@@ -18,25 +18,25 @@
         <p>
         <div style="float:left;margin-right:20px;">
             <label for="bookTitleInput">Title</label>
-            <input type="text" name="bookTitleInput" placeholder="Book Title" required />
+            <input type="text" userName="bookTitleInput" placeholder="Book Title" required />
         </div>
         <div style="float:left;">
             <label for="bookAuthorInput">Author</label>
-            <input type="text" name="bookAuthorInput" placeholder="Book Author" required />
+            <input type="text" userName="bookAuthorInput" placeholder="Book Author" required />
         </div>
         </p>
         <p style="clear:both;">
             <div style="float:left;margin-right:20px;">
            <label for="bookYearInput">Year</label>
-           <input type="number" name="bookYearInput" required  />
+           <input type="number" userName="bookYearInput" required  />
     </div>
         <div style="float:left;margin-right:20px;">
             <label for="bookIsbnInput">Isbn</label>
-         <input type="number" name="bookIsbnInput"  required />
+         <input type="number" userName="bookIsbnInput"  required />
         </div>
         <div style="float:left;">
           <label for="bookRatingInput">Rating</label>
-         <select name="bookRatingInput"  required>
+         <select userName="bookRatingInput"  required>
             <option disabled>Ratings</option>
             <option value="A">A</option>
             <option value="B">B</option>
@@ -47,7 +47,7 @@
         </p>
         <p style="clear:both;">
             <label for="bookDescriptionInput">Short Description</label>
-            <textarea name="bookDescriptionInput" rows="5" cols="50" placeholder="Enter Short Description" required></textarea>
+            <textarea userName="bookDescriptionInput" rows="5" cols="50" placeholder="Enter Short Description" required></textarea>
         </p>
         <button type="reset">Clear all fields</button>  <button type="submit">Add</button>
     </fieldset>
@@ -81,7 +81,7 @@
         {{#isOwner}}
         <td><a id="edit" href="/edit?isbnIndex={{isbn}}">Edit</a><br />
             <form action="delete" method="post">
-                <input name="isbnIndex"  type="hidden" value="{{isbn}}">
+                <input userName="isbnIndex"  type="hidden" value="{{isbn}}">
                 <button id="noShow" type="submit">Delete</button>
             </form>
         </td>
@@ -99,7 +99,7 @@
         <td>{{author}}</td>
         <td>{{year}}</td>
         <td>{{Rating}}</td>
-        <td>{{#owner}}{{name}}{{/owner}}</td>
+        <td>{{#ownerName}}{{userName}}{{/ownerName}}</td>
     </tr>
     {{/bookList}}
     </tbody>
