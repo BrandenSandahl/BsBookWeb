@@ -8,6 +8,7 @@ import spark.template.mustache.MustacheTemplateEngine;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.stream.Collectors;
 
@@ -38,7 +39,7 @@ public class Main {
     public static void createBook(Connection conn,String title, String author, String description,
                                   int isbn, int year, char rating, int owner_id) throws SQLException {
         PreparedStatement stmt = conn.prepareStatement("INSERT INTO book VALUES (null, ?, ?, ?, ?, ?, ?, ?)");
-        stmt.setInt(1, owner_id); //remember this is going on here. this shit is going on. it's going down. it's happening.
+        stmt.setInt(1, owner_id);
         stmt.setString(2, title);
         stmt.setString(3, author);
         stmt.setString(4, description);
@@ -150,6 +151,64 @@ public class Main {
     }
 
 
+    public static ArrayList<Book> sortBooks(ArrayList<Book> bookList, String sort) {
+        ArrayList<Book> bookListSorted = new ArrayList<>(bookList);
+
+        switch (sort) {
+            case "isbn":
+                Collections.sort(bookListSorted, new Comparator<Book>(){
+                    public int compare(Book one, Book two) {
+                        return one.getIsbn().compareTo(two.getIsbn());
+                    }
+                });
+                break;
+            case "title":
+                Collections.sort(bookListSorted, new Comparator<Book>(){
+                    public int compare(Book one, Book two) {
+                        return one.getTitle().compareTo(two.getTitle());
+                    }
+                });
+                break;
+            case "author":
+                Collections.sort(bookListSorted, new Comparator<Book>(){
+                    public int compare(Book one, Book two) {
+                        return one.getAuthor().compareTo(two.getAuthor());
+                    }
+                });
+                break;
+            case "year":
+                Collections.sort(bookListSorted, new Comparator<Book>(){
+                    public int compare(Book one, Book two) {
+                        return one.getYear().compareTo(two.getYear());
+                    }
+                });
+                break;
+            case "rating":
+                Collections.sort(bookListSorted, new Comparator<Book>(){
+                    public int compare(Book one, Book two) {
+                        return one.getRating().compareTo(two.getRating());
+
+                    }
+                });
+                break;
+            case "owner":
+                Collections.sort(bookListSorted, new Comparator<Book>(){
+                    public int compare(Book one, Book two) {
+                        return one.getOwnerName().compareTo(two.getOwnerName());
+
+                    }
+                });
+                break;
+            default:
+                Collections.sort(bookListSorted);
+                return bookListSorted;
+                }
+
+        return bookListSorted;
+
+    }
+
+
 
     public static void main(String[] args) throws SQLException {
         Connection conn = DriverManager.getConnection("jdbc:h2:./main");
@@ -179,15 +238,20 @@ public class Main {
                     for (Book book : bookListEditable) {
                         book.setIsOwner(book.getOwnerName().equals(userName));
                     }
-                    Collections.sort(bookListEditable);
+
+                    String sort = request.queryParams("sort");
+
+                    if (sort != null) {
+                        bookListEditable = sortBooks(bookListEditable, sort);
+                    } else {
+                        Collections.sort(bookListEditable);
+                    }
+
+
 
 //                    bookListEditable = bookListEditable.stream().sorted()
-//                            .map((book -> book.setIsOwner(book.getOwnerName().equals(userName)))
+//                            .map((book -> book.setIsOwner(book.getOwnerName().equals(userName)))  WHY NO WORK?
 //                            .collect(Collectors.toList());
-
-
-
-
 
 
                     //pagination stuff
@@ -204,9 +268,8 @@ public class Main {
                     }
 
 
-
                     //run through a method that checks to see if logged in user is the owner of the book, and allows editing and deletion.
-                    bookListEditable = getBookOwnership(userName, bookListEditable);
+//                    bookListEditable = getBookOwnership(userName, bookListEditable);
                     m.put("bookList", bookListEditable.subList(subStart, subTo));
                     m.put("haveBook", haveBook);
                     //next and prev anchors
@@ -253,8 +316,6 @@ public class Main {
 
                     //get the book object the user clicked on
                     int bookId = Integer.valueOf(request1.queryParams("bookId"));
-//                    Session session = request1.session();
-//                    session.attribute("bookId", bookId);  //add book into session
 
                     Book b = selectBook(conn, bookId);
 
@@ -351,7 +412,6 @@ public class Main {
                     char rating = request.queryParams("bookRatingInput").charAt(0);
                     int year = Integer.parseInt(request.queryParams("bookYearInput"));
                     int isbn = Integer.parseInt(request.queryParams("bookIsbnInput"));
-
                     editBook(conn, bookId, title, author, description, isbn, year, rating);
 
                     response.redirect("/");
@@ -389,10 +449,5 @@ public class Main {
         return bookList;
     }
 
-//
-//    static int getIsbnFromSession(Session session) {
-//        int isbn = session.attribute("isbnIndex");
-//        return isbn;
-//    }
 
 }

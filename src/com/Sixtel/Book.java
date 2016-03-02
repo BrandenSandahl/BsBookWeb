@@ -6,8 +6,10 @@ package com.Sixtel;
 public class Book implements Comparable {
 
     private String title, author, description;
-    private int isbn, year, bookId;
-    private char rating;
+    private Integer isbn;
+    private Integer year;
+    private Integer bookId;
+    private Character rating;
     private String ownerName;
     boolean isOwner;
 
@@ -56,27 +58,27 @@ public class Book implements Comparable {
         this.author = author;
     }
 
-    public int getIsbn() {
+    public Integer getIsbn() {
         return isbn;
     }
 
-    public void setIsbn(int isbn) {
+    public void setIsbn(Integer isbn) {
         this.isbn = isbn;
     }
 
-    public int getYear() {
+    public Integer getYear() {
         return year;
     }
 
-    public void setYear(int year) {
+    public void setYear(Integer year) {
         this.year = year;
     }
 
-    public char getRating() {
+    public Character getRating() {
         return rating;
     }
 
-    public void setRating(char rating) {
+    public void setRating(Character rating) {
         System.out.println("Enter the books rating");
 //        // display the ratings real quick-like
 //        for (int i = 0; i < RATINGS.length; i++) {
@@ -104,11 +106,11 @@ public class Book implements Comparable {
         isOwner = owner;
     }
 
-    public int getBookId() {
+    public Integer getBookId() {
         return bookId;
     }
 
-    public void setBookId(int bookId) {
+    public void setBookId(Integer bookId) {
         this.bookId = bookId;
     }
 
@@ -118,6 +120,8 @@ public class Book implements Comparable {
         Book b = (Book) o;
         return  (!author.equalsIgnoreCase(b.author))  ? author.compareTo(b.author) : title.compareTo(b.title);
     }
+
+
 
 
     //easy way to display input
