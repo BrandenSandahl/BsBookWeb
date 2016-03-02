@@ -7,13 +7,11 @@ import spark.template.mustache.MustacheTemplateEngine;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.stream.Collectors;
 
 public class Main {
-
-    static HashMap<String, User> userMap = new HashMap<>(); //static map to hold all of our user accounts
-    static  HashMap<Integer, Book> bookMap = new HashMap<>(); //need to be able to access our books by an ID
     static boolean passMisMatch = false; //this controls an HTML div. maybe look into better way to do this
 
 
@@ -84,16 +82,72 @@ public class Main {
             String owner = results.getString("user.user_name");
 
             Book b = new Book(title, author, description, isbn, year, rating, owner);
+            b.setBookId(bookId);
             return b;
         }
         return null;
     }
 
+    public static ArrayList<Book> selectBooks(Connection conn) throws SQLException {
+        Statement stmt = conn.createStatement();
 
+        ArrayList<Book> booksList = new ArrayList<>();
 
+        ResultSet results = stmt.executeQuery("SELECT * FROM book INNER JOIN user ON book_user_id = user_id");
 
+        while (results.next()) {
+            String title = results.getString("book_title");
+            String author = results.getString("book_author");
+            String description = results.getString("book_description");
+            int isbn = results.getInt("isbn");
+            int year = results.getInt("book_year");
+            char rating = results.getString("book_rating").charAt(0);
+            String owner = results.getString("user.user_name");
+            int bookId = results.getInt("book_id");
 
+            Book b = new Book(title, author, description, isbn, year, rating, owner);
+            b.setBookId(bookId);
+            booksList.add(b);
+        }
+        return booksList;
+    }
 
+    public static int editBook(Connection conn, int bookId, String title, String author, String description,
+                                int isbn, int year, char rating) throws SQLException {
+        PreparedStatement stmt = conn.prepareStatement("UPDATE book SET " +
+                " book_title = ?, book_author = ?, book_description = ?, isbn = ?, book_year = ?, book_rating = ?" +
+                "WHERE book_id = ?");
+
+        stmt.setString(1, title);
+        stmt.setString(2, author);
+        stmt.setString(3, description);
+        stmt.setInt(4, isbn);
+        stmt.setInt(5, year);
+        String ratingString = String.valueOf(rating);
+        stmt.setString(6, ratingString);
+        stmt.setInt(7, bookId);
+        int updateCount = stmt.executeUpdate();  //gives me a number of items that were updated. Not using this now. Just wanted to do it.
+        return updateCount;
+    }
+
+    public static void deleteBook(Connection conn, int bookId) throws SQLException {
+        PreparedStatement stmt = conn.prepareStatement("DELETE book WHERE book_id = ?");
+        stmt.setInt(1, bookId);
+        stmt.execute();
+    }
+
+    public static int getUserId(Connection conn, String userName) throws SQLException {
+        PreparedStatement stmt = conn.prepareStatement("SELECT user_id FROM user WHERE user_name = ?");
+        stmt.setString(1, userName);
+
+        ResultSet results = stmt.executeQuery();
+        if (results.next()) {
+            int userId = results.getInt("user_id");
+            return userId;
+        }
+
+        return -1; //i guess maybe i'm just doing this for possible future error checking?
+    }
 
 
 
@@ -101,25 +155,40 @@ public class Main {
         Connection conn = DriverManager.getConnection("jdbc:h2:./main");
         Spark.externalStaticFileLocation("public"); //link to location of CSS files
 
+        createTables(conn);
+
         Spark.init();
 
         Spark.get(
                 "/",
                 ((request, response) -> {
-                    User user = getUserFromSession(request.session());
-                    boolean haveBook = !bookMap.isEmpty();  //hides the book table if there are no items in it
+                    Session session = request.session();
+                    String userName = session.attribute("userName");
 
 
                     HashMap m = new HashMap();
-                    m.put("passMisMatch", passMisMatch);  //not really used right now, will try to implement later
-                    m.put("haveBook", haveBook);
+                    m.put("passMisMatch", passMisMatch);
 
                     //Array for mustache display purposes
                     ArrayList<Book> bookListEditable = new ArrayList<>();
-                    for (Book b : bookMap.values()) {
-                        //can set an index value in here bases on sizeOf method
-                        bookListEditable.add(b);
+                    bookListEditable = selectBooks(conn);
+
+                    boolean haveBook = !bookListEditable.isEmpty();  //hides the book table if there are no items in it
+
+                    //go through the list and set the ownership flag for editing purposes.
+                    for (Book book : bookListEditable) {
+                        book.setIsOwner(book.getOwnerName().equals(userName));
                     }
+                    Collections.sort(bookListEditable);
+
+//                    bookListEditable = bookListEditable.stream().sorted()
+//                            .map((book -> book.setIsOwner(book.getOwnerName().equals(userName)))
+//                            .collect(Collectors.toList());
+
+
+
+
+
 
                     //pagination stuff
                     String nextString = request.queryParams("offset"); //this only sends when user directly interacts with something that causes it to send.
@@ -137,16 +206,16 @@ public class Main {
 
 
                     //run through a method that checks to see if logged in user is the owner of the book, and allows editing and deletion.
-                    bookListEditable = getBookOwnership(user, bookListEditable);
+                    bookListEditable = getBookOwnership(userName, bookListEditable);
                     m.put("bookList", bookListEditable.subList(subStart, subTo));
+                    m.put("haveBook", haveBook);
                     //next and prev anchors
                     m.put("next", ((subTo != (bookListEditable.size())) ? subStart + 5 : null));  //adjust next link, hide if the end of my subList is at the end of the ArrayList
                     m.put("previous", (subStart != 0) ? subStart - 5 : null); //adjust previous link, hide if it's at 0.
 
 
-                    if (user != null) {
-                        m.put("user", user); //link to the user
-                        m.put("userName", user.getUserName());  //get the name, this is a little redundant right now, need to work on
+                    if (userName != null) {
+                        m.put("userName", userName);
                         return new ModelAndView(m, "home.html");
                     } else {
                         return new ModelAndView(m, "home.html");
@@ -160,10 +229,9 @@ public class Main {
                 "/view",
                 ((request1, response1) -> {
                     //get the book object the user clicked on
-                   // User user = getUserFromSession(request1.session());
-                    int isbnIndex = Integer.valueOf(request1.queryParams("isbnIndex"));
+                    int bookId = Integer.valueOf(request1.queryParams("bookId"));
 
-                    Book b = bookMap.get(isbnIndex);
+                    Book b = selectBook(conn, bookId );
 
                     HashMap m = new HashMap();
                     m.put("book", b); //place book in the map so we can populate a page with the books info.
@@ -176,20 +244,24 @@ public class Main {
         Spark.get(
                 "/edit",
                 ((request1, response1) -> {
-                    User user = getUserFromSession(request1.session());
-                        if (user == null) {
+                    Session session = request1.session();
+                    String userName = session.attribute("userName");
+
+                    if (userName == null) {
                             throw  new  Exception("Someone is trying to edit a book without authorization. They are not authorized. There is no authorization.");
                     }
-                    //get the book object the user clicked on
-                    int isbnIndex = Integer.valueOf(request1.queryParams("isbnIndex"));
-                    Session session = request1.session();
-                    session.attribute("isbnIndex", isbnIndex);  //add book into session
 
-                    Book b = bookMap.get(isbnIndex);
+                    //get the book object the user clicked on
+                    int bookId = Integer.valueOf(request1.queryParams("bookId"));
+//                    Session session = request1.session();
+//                    session.attribute("bookId", bookId);  //add book into session
+
+                    Book b = selectBook(conn, bookId);
 
                     HashMap m = new HashMap();
 
                     m.put("book", b); //place book in the map so we can populate a page with the books info.
+                    m.put("userName", userName);
                     return new ModelAndView(m, "edit.html");
                 }),
         new MustacheTemplateEngine()
@@ -201,23 +273,26 @@ public class Main {
                     String name = request.queryParams("nameInput");
                     String pass = request.queryParams("passwordInput");
 
+                    User user = selectUser(conn, name);
 
-                    if (!userMap.containsKey(name)) {  //if the user does not yet exist
-                        //add the user to the map
-                        userMap.put(name, new User(name, pass));
+
+                    if (user != null && (user.getUserPassword().equals(pass))) {  //if exist and the pass matches
                         //create session for user
                         Session session = request.session();
                         session.attribute("userName", name);
 
                         response.redirect("/");
                         return "";
-                    } else if ((userMap.get(name).getUserPassword().equalsIgnoreCase(pass))) {   //if the user does exist and pass matches
-                        //create session for user
-                        Session session = request.session();
-                        session.attribute("userName", name);
+                    } else if (user == null)  {   //if the user does not yet exist
+                            //add the user to the map
+                            createUser(conn, name, pass);
+                            //create session for user
+                            Session session = request.session();
+                            session.attribute("userName", name);
 
-                        response.redirect("/");
-                        return "";
+                            response.redirect("/");
+                            return "";
+
                     } else {  //otherwise just go back to index because the user entered bad pass
                         passMisMatch = true;  //this turns the password mismatch HTML on and off
 
@@ -230,7 +305,7 @@ public class Main {
         Spark.post(
                 "/enter-item",
                 ((request, response) -> {
-                    User user = getUserFromSession(request.session());
+                    String userName = request.session().attribute("userName");
 
                     //lets just grab all the fields first off. worry about error checking later yo.
                     String title = request.queryParams("bookTitleInput");
@@ -242,11 +317,10 @@ public class Main {
                     String isbnString = request.queryParams("bookIsbnInput");
                     int isbn = Integer.parseInt(isbnString);
 
+                    //add the book to the DB
+                    int userId = getUserId(conn, userName);
+                    createBook(conn, title, author, description, isbn, year, rating, userId);
 
-                    //can we make an object?
-                    Book b = new Book(title, author, description, isbn, year, rating, user);
-                    //can we add it? ... .. .... Who is we? Hello?
-                    bookMap.put(isbn, b);
                     response.redirect("/");
                     return "";
                 })
@@ -267,28 +341,18 @@ public class Main {
         Spark.post(
                 "/edit-item",
                 ((request, response) -> {
-                    User user = getUserFromSession(request.session());
-
-                    //this could be sent in a hidden Input field
-                    int isbnIndex = getIsbnFromSession(request.session());
-
+                    String userName = request.session().attribute("userName");
 
                     //get all my fields
+                    int bookId = Integer.valueOf(request.queryParams("bookId"));
                     String title = request.queryParams("bookTitleInput");
                     String author = request.queryParams("bookAuthorInput");
                     String description = request.queryParams("bookDescriptionInput");
                     char rating = request.queryParams("bookRatingInput").charAt(0);
                     int year = Integer.parseInt(request.queryParams("bookYearInput"));
-                    //for some reason i could not do this all in one go ??
-                    String isbnString = request.queryParams("bookIsbnInput");
-                    int isbn = Integer.parseInt(isbnString);
+                    int isbn = Integer.parseInt(request.queryParams("bookIsbnInput"));
 
-                    Book bookEdited = new Book(title, author, description, isbn, year, rating, user);
-
-
-                    bookMap.remove(isbnIndex); //have to do this in case we changed the ISBN
-                    bookMap.put(isbn, bookEdited); //this should update the map
-
+                    editBook(conn, bookId, title, author, description, isbn, year, rating);
 
                     response.redirect("/");
                     return "";
@@ -298,9 +362,9 @@ public class Main {
         Spark.post(
                 "/delete",
                 ((request1, response1) -> {
-                    int isbnIndex = Integer.parseInt(request1.queryParams("isbnIndex"));
+                    int bookId = Integer.parseInt(request1.queryParams("bookId"));
 
-                    bookMap.remove(isbnIndex);
+                    deleteBook(conn, bookId);
 
                     response1.redirect("/");
                     return "";
@@ -310,14 +374,14 @@ public class Main {
 
     //stream function that will set an editable field within Book
     //this runs via mustaches interaction behavior with an ArrayList
-    static ArrayList<Book> getBookOwnership(User u, ArrayList<Book> bookList) {
+    static ArrayList<Book> getBookOwnership(String userName, ArrayList<Book> bookList) {
         bookList = bookList.stream()
                 .map((book) -> {
-                    if (u != null) {
-                       // book.setOwner(u.getUserName().equals(book.getOwner().getUserName()));
+                    if (userName != null) {
+                        book.setIsOwner(userName.equals(book.getOwnerName()));
                         return book;
                     } else {
-                        book.setOwner(false);
+                        book.setIsOwner(false);
                         return book;
                     }
                 })
@@ -325,14 +389,10 @@ public class Main {
         return bookList;
     }
 
-    static User getUserFromSession(Session session) {
-        String name = session.attribute("userName");
-        return userMap.get(name);
-    }
-
-    static int getIsbnFromSession(Session session) {
-        int isbn = session.attribute("isbnIndex");
-        return isbn;
-    }
+//
+//    static int getIsbnFromSession(Session session) {
+//        int isbn = session.attribute("isbnIndex");
+//        return isbn;
+//    }
 
 }

@@ -13,28 +13,29 @@
     <form action="/edit-item" method="post">
         <fieldset>
             <legend>Edit Inventory Item as Needed</legend>
-            <p>
+            <p><input type="hidden" value="{{bookId}}" name="bookId"/>
             <div style="float:left;margin-right:20px;">
                 <label for="bookTitleInput">Title</label>
-                <input type="text" userName="bookTitleInput" value="{{title}}" required />
+                <input type="text" name="bookTitleInput" value="{{title}}" required />
             </div>
             <div style="float:left;">
                 <label for="bookAuthorInput">Author</label>
-                <input type="text" userName="bookAuthorInput" value="{{author}}" required />
+                <input type="text" name="bookAuthorInput" value="{{author}}" required />
             </div>
             </p>
             <p style="clear:both;">
             <div style="float:left;margin-right:20px;">
                 <label for="bookYearInput">Year</label>
-                <input type="number" userName="bookYearInput" value="{{year}}" required />
+                <input type="number" name="bookYearInput" value="{{year}}" required />
             </div>
             <div style="float:left;margin-right:20px;">
                 <label for="bookIsbnInput">Isbn</label>
-                <input type="number" userName="bookIsbnInput" value="{{isbn}}" required/>
+                <input type="number" name="bookIsbnInput" value="{{isbn}}" required/>
             </div>
             <div style="float:left;">
                 <label for="bookRatingInput">Rating</label>
-                <select userName="bookRatingInput" required>
+                <select name="bookRatingInput">
+                    <option disabled value="{{rating}}">{{rating}}</option>
                     <option value="A">A</option>
                     <option value="B">B</option>
                     <option value="C">C</option>
@@ -44,7 +45,7 @@
             </p>
             <p style="clear:both;">
                 <label for="bookDescriptionInput">Short Description</label>
-                <textarea userName="bookDescriptionInput" rows="5" cols="50" required>{{description}}</textarea>
+                <textarea name="bookDescriptionInput" rows="5" cols="50" required>{{description}}</textarea>
             </p>
             <button type="reset">Reset Fields</button> <a href="/"><button type="button">Cancel Edit</button></a> <button type="submit">Edit</button>
         </fieldset>

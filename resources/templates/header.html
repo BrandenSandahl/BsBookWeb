@@ -1,4 +1,4 @@
-{{#user}}
+{{#userName}}
 <!-- I show up if the user IS logged in -->
 <ul>
     <li>
@@ -10,26 +10,26 @@
     </li>
     <li><a href="/">{{userName}}</a></li>
 </ul>
-{{/user}}
+{{/userName}}
 
 
-{{^user}}
+{{^userName}}
 <!-- I show up if the user is NOT logged in -->
 <ul>
 <span id="login">
 <form action="/login" method="post">
-    <li><button class="navButton" type="submit">Submit</button></li>
-    <li><input type="userPassword" userName="passwordInput" placeholder="User Password" /></li>
-    <li><input type="text" userName="nameInput" placeholder="User Name" /></li>
+    <li tabindex="2"><button class="navButton" type="submit">Submit</button></li>
+    <li tabindex="1"><input type="userPassword" name="passwordInput" placeholder="User Password" /></li>
+    <li tabindex="0"><input type="text" name="nameInput" placeholder="User Name" /></li>
 </form>
 </span>
     {{#passMisMatch}}
-    <li>
-        You have entered an invalid userPassword.
+    <li style="color:red;">
+        You have entered an invalid password.
     </li>
 
     {{/passMisMatch}}
 </ul>
 
-{{/user}}
+{{/userName}}
 

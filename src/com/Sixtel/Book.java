@@ -3,14 +3,14 @@ package com.Sixtel;
 /**
  * Created by branden on 2/25/16 at 12:32.
  */
-public class Book {
+public class Book implements Comparable {
 
     private String title, author, description;
     private int isbn, year, bookId;
     private char rating;
     private String ownerName;
     boolean isOwner;
-   private User owner;
+
 
     //private final char[] RATINGS = {'A', 'B', 'C', 'D'};
 
@@ -19,24 +19,15 @@ public class Book {
     public Book() {
     }
 
-    public Book(String title, String author, String description, int isbn, int year, char rating, User owner) {
-        this.title = title;
-        this.author = author;
-        this.description = description;
-        this.isbn = isbn;
-        this.year = year;
-        this.rating = rating;
-        this.owner = owner;
-    }
 
     public Book(String title, String author, String description, int isbn, int year, char rating, String ownerName) {
-        this.title = title;
-        this.author = author;
-        this.description = description;
-        this.isbn = isbn;
-        this.year = year;
-        this.rating = rating;
-        this.ownerName = ownerName;
+        setTitle(title);
+        setAuthor(author);
+        setDescription(description);
+        setIsbn(isbn);
+        setYear(year);
+        setRating(rating);
+        setOwnerName(ownerName);
     }
 
 
@@ -96,7 +87,7 @@ public class Book {
         this.rating = rating;
     }
 
-    public String getOwner() {
+    public String getOwnerName() {
         return ownerName;
     }
 
@@ -105,12 +96,11 @@ public class Book {
     }
 
 
-
-    public boolean getOwnerName() {
+    public boolean getIsOwner() {
         return isOwner;
     }
 
-    public void setOwner(boolean owner) {
+    public void setIsOwner(boolean owner) {
         isOwner = owner;
     }
 
@@ -121,6 +111,14 @@ public class Book {
     public void setBookId(int bookId) {
         this.bookId = bookId;
     }
+
+
+    @Override
+    public int compareTo(Object o) {
+        Book b = (Book) o;
+        return  (!author.equalsIgnoreCase(b.author))  ? author.compareTo(b.author) : title.compareTo(b.title);
+    }
+
 
     //easy way to display input
     @Override
