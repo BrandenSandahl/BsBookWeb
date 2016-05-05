@@ -1,0 +1,6 @@
+{
+  "name": "Bsbookweb",
+  "tagline": "Project to make a CRUD website with Java Spark and H2",
+  "body": "### Welcome to my project.\r\nThis project was done during my time at The Iron Yard Charleston. The goal was to create a CRUD website using the Java Spark platform and backed by an H2 Database. I choose to create a book tracking website that allows users to log in and add books that they own to the website. The logged in user can then edit or delete their book and all users are able to view all books and see the owner of the book. \r\n\r\n### Features\r\n* User log in and log out\r\n* Users can add books. \r\n* Users can edit and delete only their own books. \r\n* All Users books are view able in a table.\r\n* Table incorporates paging.\r\n* Table incorporates sorting on all columns.  \r\n\r\n\r\n",
+  "note": "Don't delete this file! It's used internally to help with page regeneration."
+}
